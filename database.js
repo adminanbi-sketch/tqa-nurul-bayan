@@ -4,7 +4,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const DB_PATH = path.join(__dirname, 'tqa.db');
+const DB_PATH = process.env.DATABASE_PATH || path.join(__dirname, 'tqa.db');
 const db = new sqlite3.Database(DB_PATH);
 
 // =========================================================

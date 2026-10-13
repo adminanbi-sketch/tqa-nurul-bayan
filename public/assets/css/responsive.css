@@ -1,0 +1,16 @@
+@media (max-width: 700px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .juz-grid { grid-template-columns: repeat(6, 1fr); }
+    .grid3 { grid-template-columns: 1fr; }
+  }
+
+@media (max-width: 520px) {
+    .grid2 { grid-template-columns: 1fr; }
+    .stat-box .n { font-size: 16px; }
+    .nav-tabs button { padding: 7px 10px; font-size: 12px; }
+    .brand-txt h1 { font-size: 13px; }
+    .brand img { width: 34px; height: 34px; }
+    .login-logo-wrap img { width: 90px; height: 90px; }
+    .tajwid-grid { grid-template-columns: 1fr; }
+    .notif-panel { width: calc(100vw - 32px); right: 16px; }
+  }

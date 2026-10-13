@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TQA Nurul Bayan — Sistem Tahfidz</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+<link rel="icon" type="image/png" href="assets/img/logo-tqa.png">
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo-wrap"><img class="logo-img" id="logoSrc" alt="TQA Nurul Bayan"></div>
+    <h1>TQA Nurul Bayan</h1>
+    <div class="sub">Sistem Monitoring Hafalan Al-Qur'an</div>
+
+    <div class="field">
+      <label>Masuk sebagai</label>
+      <div class="role-list">
+        <button class="role-item active" data-role="admin" onclick="pilihRole('admin', this)">Administrator</button>
+        <button class="role-item" data-role="musyrif" onclick="pilihRole('musyrif', this)">Musyrif</button>
+        <button class="role-item" data-role="santri" onclick="pilihRole('santri', this)">Santri</button>
+        <button class="role-item" data-role="wali" onclick="pilihRole('wali', this)">Wali Santri</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Username</label>
+      <input type="text" id="loginUsername" placeholder="admin" autocomplete="username">
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <div class="pass-wrap">
+        <input type="password" id="loginPassword" placeholder="Masukkan password" autocomplete="current-password" style="padding-right:40px">
+        <button type="button" class="pass-toggle" onclick="togglePass()" id="togglePassBtn">👁</button>
+      </div>
+    </div>
+
+    <button class="btn btn-main" onclick="masuk()">Masuk</button>
+    <div id="loginError" style="display:none;margin-top:12px;padding:9px 12px;background:var(--danger-soft);color:var(--danger);border:1px solid var(--danger-border);border-radius:6px;font-size:12px;text-align:center"></div>
+
+    <div class="login-info-box">
+      <div class="h">Akun default</div>
+      Admin: <code>admin</code> / <code>admin123</code><br>
+      Musyrif: <code>musyrif</code> / <code>musyrif123</code><br>
+      Santri & Wali: username = nama santri (tanpa spasi)
+    </div>
+  </div>
+</div>
+
+<header class="app-header">
+    <div class="brand">
+    <img class="logo-img" id="headerLogo" alt="Logo">
+    <div class="brand-txt">
+      <h1>TQA Nurul Bayan</h1>
+      <div class="sub" id="headerSub">Rengasdengklok · Karawang</div>
+      <div class="sub" id="headerClock" style="font-size:10.5px;opacity:0.85;margin-top:1px"></div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="notif-btn" onclick="toggleNotif()" id="notifBtn" title="Notifikasi">
+      🔔<span class="badge" id="notifBadge" style="display:none">0</span>
+    </button>
+    <button class="theme-btn" onclick="toggleTema()" id="themeBtn">🌙</button>
+    <div class="user-block" onclick="keluar()" title="Klik untuk keluar">
+      <div class="av" id="userAv">A</div>
+      <div class="info">
+        <div class="nm" id="userNama">User</div>
+        <div class="rl" id="userRole">admin</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="notif-panel" id="notifPanel">
+  <h4>🔔 Notifikasi</h4>
+  <div id="notifList"></div>
+</div>
+
+<div class="wrap">
+  <div id="announceBar"></div>
+
+  <div class="stat-row">
+    <div class="stat-box"><div class="n" id="statSantri">0</div><div class="l">Santri</div></div>
+    <div class="stat-box"><div class="n" id="statSetoran">0</div><div class="l">Setoran</div></div>
+    <div class="stat-box"><div class="n" id="statHadir">0%</div><div class="l">Kehadiran</div></div>
+    <div class="stat-box"><div class="n" id="statStreak">0</div><div class="l">Streak</div></div>
+  </div>
+
+  <nav class="nav-tabs">
+    <button class="on" data-tab="santri" onclick="bukaTab('santri')">Santri</button>
+    <button data-tab="setoran" onclick="bukaTab('setoran')">Setoran</button>
+    <button data-tab="absen" onclick="bukaTab('absen')">Absensi</button>
+    <button data-tab="mutabaah" onclick="bukaTab('mutabaah')">Mutaba'ah</button>
+    <button data-tab="halaqah" onclick="bukaTab('halaqah')">Halaqah</button>
+    <button data-tab="leaderboard" onclick="bukaTab('leaderboard')">Peringkat</button>
+    <button data-tab="laporan" onclick="bukaTab('laporan')">Laporan</button>
+    <button data-tab="pengaturan" onclick="bukaTab('pengaturan')">Pengaturan</button>
+  </nav>
+
+    <section class="panel on" id="panel-santri">
+    <div class="box" id="formSantriBox">
+    <div class="box-title">Tambah Data Santri</div>
+<div class="field">
+  <label>Foto Santri (opsional)</label>
+  <div class="foto-upload">
+    <div class="foto-preview" id="fotoPreviewSantri">
+      <span class="foto-placeholder">📷</span>
+    </div>
+    <div class="foto-actions">
+      <button type="button" class="btn btn-alt btn-s" onclick="document.getElementById('inFotoSantri').click()">Pilih Foto</button>
+      <button type="button" class="btn btn-alt btn-s" onclick="hapusFotoSantri()">Hapus</button>
+      <input type="file" id="inFotoSantri" accept="image/*" style="display:none" onchange="prosesFotoSantri(event)">
+    </div>
+  </div>
+</div>
+<div class="field">
+  <label>Nama lengkap</label>
+  <input type="text" id="inNamaSantri" placeholder="cth. Ahmad Fauzi">
+</div>
+      <div class="grid2">
+        <div class="field">
+          <label>Halaqah</label>
+          <select id="inHalaqahSantri"></select>
+        </div>
+        <div class="field">
+          <label>Target (juz)</label>
+          <input type="number" id="inTargetSantri" value="30" min="1" max="30">
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label>Tanggal lahir (opsional)</label>
+          <input type="date" id="inTglLahirSantri">
+        </div>
+        <div class="field">
+          <label>No. HP wali (opsional)</label>
+          <input type="text" id="inHpWaliSantri" placeholder="08xxxx">
+        </div>
+      </div>
+      <div class="field">
+        <label>Nama wali (opsional)</label>
+        <input type="text" id="inNamaWaliSantri" placeholder="cth. Bapak Hasan">
+      </div>
+      <button class="btn btn-main" onclick="simpanSantri()">Simpan</button>
+    </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">
+        <span>Daftar Santri <span class="hint" id="santriCount"></span></span>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="cariSantri" placeholder="🔍 Cari nama santri..." oninput="renderSantri()">
+        <select id="filterHalaqahSantri" onchange="renderSantri()" style="padding:8px 10px;border:1px solid var(--border-input);border-radius:6px;background:var(--bg-input);font-size:13px"></select>
+      </div>
+      <div id="listSantri"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-setoran">
+    <div class="box" id="formSetoranBox">
+      <div class="box-title">Input Setoran</div>
+      <div class="field">
+        <label>Santri</label>
+        <select id="inSetoranSantri"></select>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label>Jenis setoran</label>
+          <select id="inSetoranJenis">
+            <option value="Ziyadah">Ziyadah</option>
+            <option value="Murojaah">Muroja'ah</option>
+            <option value="Tasmi'">Tasmi'</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Juz</label>
+          <select id="inSetoranJuz"><option value="">— Pilih juz —</option><option value="1">Juz 1</option><option value="2">Juz 2</option><option value="3">Juz 3</option><option value="4">Juz 4</option><option value="5">Juz 5</option><option value="6">Juz 6</option><option value="7">Juz 7</option><option value="8">Juz 8</option><option value="9">Juz 9</option><option value="10">Juz 10</option><option value="11">Juz 11</option><option value="12">Juz 12</option><option value="13">Juz 13</option><option value="14">Juz 14</option><option value="15">Juz 15</option><option value="16">Juz 16</option><option value="17">Juz 17</option><option value="18">Juz 18</option><option value="19">Juz 19</option><option value="20">Juz 20</option><option value="21">Juz 21</option><option value="22">Juz 22</option><option value="23">Juz 23</option><option value="24">Juz 24</option><option value="25">Juz 25</option><option value="26">Juz 26</option><option value="27">Juz 27</option><option value="28">Juz 28</option><option value="29">Juz 29</option><option value="30">Juz 30</option></select>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label>Surah</label>
+          <select id="inSetoranSurah"><option value="">— Pilih surah —</option></select>
+        </div>
+        <div class="field">
+          <label>Ayat</label>
+          <input type="text" id="inSetoranAyat" placeholder="Contoh: 1-10" list="opsiAyatSetoran"><datalist id="opsiAyatSetoran"></datalist><small id="infoSurahSetoran" class="muted" style="display:block;margin-top:4px">Pilih surah untuk melihat jumlah ayat.</small>
+        </div>
+      </div>
+      <div class="field">
+        <label>Penilaian</label>
+        <select id="inSetoranNilai">
+          <option value="Lancar">Lancar</option>
+          <option value="Kurang Lancar">Kurang Lancar</option>
+          <option value="Mengulang">Mengulang</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Kategori Kesalahan Tajwid (opsional)</label>
+        <div class="tajwid-grid" id="tajwidGrid"></div>
+      </div>
+
+      <div class="field">
+        <label>Catatan (opsional)</label>
+        <textarea id="inSetoranCatatan" placeholder="cth. salah mad di ayat 5"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Rekaman Suara Setoran</label>
+        <div id="micWarn" class="mic-warn" style="display:none"></div>
+        <div class="rec">
+          <button class="rec-btn" id="recBtn" onclick="toggleRekam()">●</button>
+          <div class="rec-info">
+            <div class="rec-time" id="recTime">00:00</div>
+            <div class="rec-hint" id="recHint">Ketuk untuk mulai merekam</div>
+          </div>
+          <button class="btn btn-alt btn-s" onclick="hapusRekaman()">Hapus</button>
+        </div>
+        <audio id="audioPreview" controls style="display:none"></audio>
+      </div>
+
+      <button class="btn btn-main" onclick="simpanSetoran()">Simpan Setoran</button>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Riwayat Setoran</div>
+      <div class="chip-group" id="filterJenisChips">
+        <button class="chip on" data-fset="all" onclick="filterSetoran('all', this)">Semua</button>
+        <button class="chip" data-fset="Ziyadah" onclick="filterSetoran('Ziyadah', this)">Ziyadah</button>
+        <button class="chip" data-fset="Murojaah" onclick="filterSetoran('Murojaah', this)">Muroja'ah</button>
+        <button class="chip" data-fset="Tasmi'" onclick="filterSetoran('Tasmi\'', this)">Tasmi'</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="cariSetoran" placeholder="🔍 Cari nama santri / surah..." oninput="renderSetoran()">
+      </div>
+      <div id="listSetoran"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-absen">
+    <div class="box">
+      <div class="box-title">Absensi Harian</div>
+      <div class="field">
+        <label>Tanggal</label>
+        <input type="date" id="inAbsenTanggal">
+      </div>
+      <div id="formAbsen"></div>
+      <button class="btn btn-main" style="margin-top:12px" onclick="simpanAbsen()">Simpan Absensi</button>
+    </div>
+    <div class="box">
+      <div class="box-title">Riwayat Absensi</div>
+      <div id="riwayatAbsen"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-mutabaah">
+    <div class="box">
+      <div class="box-title">Mutaba'ah Harian</div>
+      <div class="field">
+        <label>Santri</label>
+        <select id="inMutabaahSantri"></select>
+      </div>
+      <div class="field">
+        <label>Tanggal</label>
+        <input type="date" id="inMutabaahTanggal">
+      </div>
+      <div id="formMutabaah"></div>
+      <button class="btn btn-main" style="margin-top:12px" onclick="simpanMutabaah()">Simpan Mutaba'ah</button>
+    </div>
+    <div class="box">
+      <div class="box-title">Riwayat Mutaba'ah</div>
+      <div id="riwayatMutabaah"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-halaqah">
+    <div class="box">
+      <div class="box-title">Laporan Per Halaqah</div>
+      <div class="field">
+        <label>Pilih Halaqah</label>
+        <select id="inLaporanHalaqah" onchange="tampilLaporanHalaqah()"></select>
+      </div>
+      <div id="isiLaporanHalaqah"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-leaderboard">
+    <div class="box">
+      <div class="box-title">Peringkat Halaqah</div>
+      <div class="chip-group">
+        <button class="chip on" data-lb="setoran" onclick="filterLeaderboard('setoran', this)">Setoran</button>
+        <button class="chip" data-lb="kehadiran" onclick="filterLeaderboard('kehadiran', this)">Kehadiran</button>
+        <button class="chip" data-lb="mutabaah" onclick="filterLeaderboard('mutabaah', this)">Mutaba'ah</button>
+      </div>
+      <div class="field" style="margin-top:10px">
+        <label>Filter Halaqah (opsional)</label>
+        <select id="filterLbHalaqah" onchange="renderLeaderboard()"></select>
+      </div>
+      <div id="listLeaderboard"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-laporan">
+    <div class="box">
+      <div class="box-title">Laporan Per Santri</div>
+      <div class="field">
+        <label>Pilih Santri</label>
+        <select id="inLaporanSantri" onchange="tampilLaporan()"></select>
+      </div>
+      <div id="isiLaporan"></div>
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <button class="btn btn-main" onclick="exportPDF()">Cetak Raport PDF</button>
+        <button class="btn btn-alt" onclick="exportCSV()" style="flex-shrink:0">Export CSV</button>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Peta Capaian 30 Juz</div>
+      <div id="petaJuz"></div>
+      <div style="font-size:11.5px;color:var(--text-muted);margin-top:8px;line-height:1.6">
+        <span style="display:inline-block;width:12px;height:12px;background:var(--primary);border-radius:3px;vertical-align:middle;margin-right:5px"></span>Lancar
+        <span style="display:inline-block;width:12px;height:12px;background:var(--tag-yellow-bg);border:1px solid var(--gold);border-radius:3px;vertical-align:middle;margin-left:12px;margin-right:5px"></span>Perlu perbaikan
+        <span style="display:inline-block;width:12px;height:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:3px;vertical-align:middle;margin-left:12px;margin-right:5px"></span>Belum
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Grafik Capaian Hafalan</div>
+      <div class="chart-wrap"><canvas id="chartHafalan"></canvas></div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Statistik Kesalahan Tajwid</div>
+      <div class="chart-wrap"><canvas id="chartTajwid"></canvas></div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Grafik Kehadiran & Mutaba'ah (7 hari)</div>
+      <div class="chart-wrap"><canvas id="chartAktivitas"></canvas></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-pengaturan">
+    <div class="box">
+      <div class="box-title">Tampilan</div>
+      <div class="info-row">
+        <span class="k">Mode Gelap</span>
+        <button class="btn btn-alt btn-s" onclick="toggleTema()" id="themeBtnText">Aktifkan</button>
+      </div>
+      <div class="info-row">
+        <span class="k">Tema Sistem</span>
+        <button class="btn btn-alt btn-s" onclick="autoTheme()">Ikuti Sistem</button>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Ganti Password</div>
+      <div class="field">
+        <label>Password Lama</label>
+        <input type="password" id="pwLama" placeholder="Password saat ini">
+      </div>
+      <div class="field">
+        <label>Password Baru</label>
+        <input type="password" id="pwBaru" placeholder="Minimal 6 karakter">
+      </div>
+      <div class="field">
+        <label>Konfirmasi</label>
+        <input type="password" id="pwKonfirm" placeholder="Ulangi password baru">
+      </div>
+      <button class="btn btn-main" onclick="gantiPassword()">Simpan Password Baru</button>
+    </div>
+
+    <div class="box" id="boxKelolaHalaqah">
+      <div class="box-title">Kelola Halaqah</div>
+      <div id="listHalaqahAdmin"></div>
+      <div style="margin-top:12px;border-top:1px solid var(--border-soft);padding-top:12px">
+        <div class="grid2">
+          <div class="field">
+            <label>Nama Halaqah</label>
+            <input type="text" id="newHalaqahNama" placeholder="cth. Halaqah C">
+          </div>
+          <div class="field">
+            <label>Musyrif (opsional)</label>
+            <select id="newHalaqahMusyrif"></select>
+          </div>
+        </div>
+        <button class="btn btn-main" onclick="tambahHalaqah()">Tambah Halaqah</button>
+      </div>
+    </div>
+
+    <div class="box" id="boxKelolaUser">
+      <div class="box-title">Kelola Akun Musyrif</div>
+      <div id="listUsers"></div>
+      <div style="margin-top:12px;border-top:1px solid var(--border-soft);padding-top:12px">
+        <div class="field">
+          <label>Username baru</label>
+          <input type="text" id="newUserName" placeholder="cth. ustadzahmad">
+        </div>
+        <div class="field">
+          <label>Nama tampilan</label>
+          <input type="text" id="newUserNama" placeholder="cth. Ustadz Ahmad">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="text" id="newUserPass" placeholder="Minimal 6 karakter">
+        </div>
+        <button class="btn btn-main" onclick="tambahMusyrif()">Tambah Musyrif</button>
+      </div>
+    </div>
+
+    <div class="box" id="boxCustomAmalan">
+      <div class="box-title">Custom Amalan Mutaba'ah</div>
+      <div id="listAmalan"></div>
+      <div style="margin-top:12px;border-top:1px solid var(--border-soft);padding-top:12px">
+        <div class="field">
+          <label>Amalan Baru</label>
+          <input type="text" id="newAmalanNama" placeholder="cth. Sholat Rawatib">
+        </div>
+        <button class="btn btn-main" onclick="tambahAmalan()">Tambah Amalan</button>
+      </div>
+    </div>
+
+    <div class="box" id="boxPengumuman">
+      <div class="box-title">Pengumuman</div>
+      <div class="field">
+        <label>Teks pengumuman (kosongkan untuk hapus)</label>
+        <textarea id="inPengumuman" placeholder="cth. Libur Idul Fitri 10-12 April 2025"></textarea>
+      </div>
+      <button class="btn btn-main" onclick="simpanPengumuman()">Simpan Pengumuman</button>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Cadangkan Data</div>
+      <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:12px;line-height:1.5">
+        Simpan semua data ke file JSON yang bisa diimpor kembali.
+      </p>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-alt" style="flex:1" onclick="unduhData()">Unduh Backup</button>
+        <button class="btn btn-alt" style="flex:1" onclick="document.getElementById('fileImport').click()">Impor Backup</button>
+      </div>
+      <input type="file" id="fileImport" accept=".json" style="display:none" onchange="imporData(event)">
+    </div>
+
+    <div class="box">
+      <div class="box-title">Informasi Sistem</div>
+      <div class="info-row"><span class="k">Versi</span><span class="v">2.1.0</span></div>
+      <div class="info-row"><span class="k">Total Santri</span><span class="v" id="infoSantri">0</span></div>
+      <div class="info-row"><span class="k">Total Halaqah</span><span class="v" id="infoHalaqah">0</span></div>
+      <div class="info-row"><span class="k">Total Setoran</span><span class="v" id="infoSetoran">0</span></div>
+      <div class="info-row"><span class="k">Total Absen</span><span class="v" id="infoAbsen">0</span></div>
+      <div class="info-row"><span class="k">Total Mutaba'ah</span><span class="v" id="infoMutabaah">0</span></div>
+      <div class="info-row"><span class="k">Penyimpanan</span><span class="v" id="infoStorage">0 KB</span></div>
+      <div class="info-row"><span class="k">Status Mikrofon</span><span class="v" id="infoMic">Memeriksa...</span></div>
+    </div>
+
+    <div class="box">
+      <div class="box-title">Zona Bahaya</div>
+      <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:12px;line-height:1.5">
+        Menghapus semua data santri, setoran, absensi, dan mutaba'ah.
+      </p>
+      <button class="btn btn-red" style="width:100%;padding:9px" onclick="resetSemua()">Hapus Semua Data</button>
+    </div>
+  </section>
+
+</div>
+<!-- MODAL KARTU SANTRI -->
+<div class="modal-overlay" id="kartuOverlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="tutupKartu()">×</button>
+    <div id="kartuContent"></div>
+    <div class="modal-actions">
+      <button class="btn btn-alt" onclick="tutupKartu()">Tutup</button>
+      <button class="btn btn-main" onclick="cetakKartu()">Cetak Kartu</button>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOM CONFIRM DIALOG -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="cf-title" id="cfTitle">Konfirmasi</div>
+    <div class="cf-msg" id="cfMsg">Apakah Anda yakin?</div>
+    <div class="cf-actions">
+      <button class="btn btn-cancel" onclick="confirmCancel()">Batal</button>
+      <button class="btn btn-confirm" id="cfOkBtn" onclick="confirmOk()">Ya, Lanjutkan</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<nav class="bottom">
+  <button class="on" data-tab="santri" onclick="bukaTab('santri')"><span class="ic">◍</span>Santri</button>
+  <button data-tab="setoran" onclick="bukaTab('setoran')"><span class="ic">✎</span>Setoran</button>
+  <button data-tab="absen" onclick="bukaTab('absen')"><span class="ic">✓</span>Absen</button>
+  <button data-tab="mutabaah" onclick="bukaTab('mutabaah')"><span class="ic">▤</span>Mutaba'ah</button>
+  <button data-tab="laporan" onclick="bukaTab('laporan')"><span class="ic">◑</span>Laporan</button>
+</nav>
+
+<script src="assets/js/00-logo.js"></script>
+<script src="assets/js/01-confirm.js"></script>
+<script src="assets/js/02-theme.js"></script>
+<script src="assets/js/03-password.js"></script>
+<script src="assets/js/api-client.js"></script>
+<script src="assets/js/04-data.js"></script>
+<script src="assets/js/04a-quran.js"></script>
+<script src="assets/js/05-login.js"></script>
+<script src="assets/js/06-navigation.js"></script>
+<script src="assets/js/07-halaqah.js"></script>
+<script src="assets/js/08-santri.js"></script>
+<script src="assets/js/09-tajwid.js"></script>
+<script src="assets/js/10-audio-recorder.js"></script>
+<script src="assets/js/11-hafalan-setoran.js"></script>
+<script src="assets/js/12-absensi.js"></script>
+<script src="assets/js/13-mutabaah.js"></script>
+<script src="assets/js/14-laporan.js"></script>
+<script src="assets/js/15-grafik.js"></script>
+<script src="assets/js/16-laporan-halaqah.js"></script>
+<script src="assets/js/17-leaderboard.js"></script>
+<script src="assets/js/18-export-laporan.js"></script>
+<script src="assets/js/19-notifikasi.js"></script>
+<script src="assets/js/20-ganti-password.js"></script>
+<script src="assets/js/21-kelola-user.js"></script>
+<script src="assets/js/22-amalan.js"></script>
+<script src="assets/js/23-backup.js"></script>
+<script src="assets/js/24-statistik.js"></script>
+<script src="assets/js/25-render.js"></script>
+<script src="assets/js/26-init.js"></script>
+<script src="assets/js/27-clock.js"></script>
+<script src="assets/js/28-kartu.js"></script>
+</body>
+</html>

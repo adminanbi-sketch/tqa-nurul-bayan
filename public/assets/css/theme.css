@@ -1,0 +1,14 @@
+html[data-theme="dark"] {
+    --bg: #0f1419; --bg-card: #1a2028; --bg-input: #232b35;
+    --text: #e7e9ea; --text-muted: #8b98a5; --text-soft: #6b7785;
+    --border: #2f3336; --border-input: #3a4149; --border-soft: #232830;
+    --primary: #4ade80; --primary-hover: #22c55e; --primary-soft: #1a2f24;
+    --accent: #e5b93a; --danger: #f87171; --danger-soft: #2a1717; --danger-border: #4a2020;
+    --tag-green-bg: #1a2f24; --tag-green-fg: #4ade80;
+    --tag-yellow-bg: #2a2410; --tag-yellow-fg: #e5b93a;
+    --tag-red-bg: #2a1717; --tag-red-fg: #f87171;
+    --tag-blue-bg: #16243a; --tag-blue-fg: #60a5fa;
+    --gold: #e5b93a;
+  }
+
+html[data-theme="dark"] #toast { background: #e7e9ea; color: #1c1e21; }

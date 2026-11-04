@@ -67,18 +67,6 @@ function wrap(fn) {
 // =========================================================
 // API — AUTH
 // =========================================================
-// Pintu darurat sementara untuk reset admin
-app.get('/reset-admin', async (req, res) => {
-  try {
-    const { hashPass } = require('./hash');
-    const { run } = require('./database');
-    await run("UPDATE users SET password = ? WHERE username = 'admin'", [hashPass('admin123')]);
-    res.send('<h1>✅ BERHASIL! Password admin sudah direset ke: admin123</h1><p>Silakan <a href="/">Login di sini</a></p>');
-  } catch (e) {
-    res.send('Gagal: ' + e.message);
-  }
-});
-
 app.post('/api/login', wrap(async (req, res) => {
   const { username, password, role } = req.body;
   if (!username || !password || !role) return fail(res, 'Data tidak lengkap');

@@ -1,5 +1,5 @@
 // =========================================================
-// HASH PASSWORD — sama seperti di frontend
+// HASH PASSWORD — sama persis dengan frontend
 // =========================================================
 function hashPass(s) {
   let h = 0;

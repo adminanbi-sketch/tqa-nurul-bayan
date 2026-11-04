@@ -1,6 +1,31 @@
 // =========================================================
 // KELOLA USER — via API
 // =========================================================
+async function tambahMusyrif() {
+  const uname = document.getElementById('newUserName').value.trim().toLowerCase().replace(/\s+/g, '');
+  const nama = document.getElementById('newUserNama').value.trim();
+  const pass = document.getElementById('newUserPass').value;
+  
+  if (!uname || !nama || !pass) return toast('Semua field harus diisi');
+  if (pass.length < 6) return toast('Password minimal 6 karakter');
+
+  try {
+    // Simpan ke Database via API (password di-hash oleh server)
+    await api.addUser({ username: uname, nama, password: pass });
+    
+    document.getElementById('newUserName').value = '';
+    document.getElementById('newUserNama').value = '';
+    document.getElementById('newUserPass').value = '';
+    
+    renderListUsers();
+    renderHalaqahAdmin();
+    renderHalaqahDropdowns();
+    toast('Musyrif ditambahkan ke server');
+  } catch (e) {
+    toast('Gagal menambahkan: ' + e.message);
+  }
+}
+
 async function renderListUsers() {
   const el = document.getElementById('listUsers');
   if (!el) return;

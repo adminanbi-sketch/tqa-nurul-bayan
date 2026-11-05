@@ -165,13 +165,16 @@ async function init() {
     }
   }
 
-  // Users default
-  const usersCount = await get('SELECT COUNT(*) AS c FROM users');
-  if (usersCount.c === 0) {
-    await run('INSERT INTO users (username, password, role, nama) VALUES (?, ?, ?, ?)', ['admin', hashPass('admin123'), 'admin', 'Administrator']);
-    await run('INSERT INTO users (username, password, role, nama) VALUES (?, ?, ?, ?)', ['musyrif', hashPass('musyrif123'), 'musyrif', 'Musyrif']);
-  }
-
+    // =========================================================
+  // AUTO-CREATE / RESET USER MUSYRIF BARU
+  // =========================================================
+  // Kode ini akan menghapus musyrif3/musyrif4 jika ada, lalu membuat yang baru
+  await run("DELETE FROM users WHERE username IN ('musyrif3', 'musyrif4')");
+  
+  // Membuat user baru: username: musyrif3, pass: rahasia123
+  await run('INSERT INTO users (username, password, role, nama) VALUES (?, ?, ?, ?)', 
+    ['musyrif3', hashPass('rahasia123'), 'musyrif', 'Ustadz Baru']);
+    
   // Pengumuman default
   const pengCount = await get('SELECT COUNT(*) AS c FROM pengumuman');
   if (pengCount.c === 0) {

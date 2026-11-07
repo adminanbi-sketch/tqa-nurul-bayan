@@ -64,45 +64,6 @@ function wrap(fn) {
   };
 }
 // =========================================================
-// HALAMAN DEBUG: LIHAT & RESET USER (SEMENTARA)
-// =========================================================
-app.get('/debug-users', async (req, res) => {
-  try {
-    const users = await all('SELECT username, role, nama, password FROM users');
-    
-    // Tampilkan daftar user dalam bentuk HTML
-    let html = '<h2>Daftar User di Database Server:</h2><ul>';
-    users.forEach(u => {
-      html += `<li><b>${u.username}</b> (${u.role}) - Nama: ${u.nama} - Hash: ${u.password}</li>`;
-    });
-    html += '</ul>';
-
-    // Tombol untuk paksa reset password musyrif3
-    html += `
-      <hr>
-      <h3>Paksa Reset Password Musyrif3</h3>
-      <p>Klik tombol di bawah ini untuk mengubah password musyrif3 menjadi: <b>123456</b></p>
-      <form action="/debug-reset-musyrif3" method="GET">
-        <button type="submit" style="padding:10px; background:green; color:white; font-size:16px;">RESET PASSWORD MUSYRIF3</button>
-      </form>
-    `;
-    res.send(html);
-  } catch (e) {
-    res.send('Error: ' + e.message);
-  }
-});
-
-app.get('/debug-reset-musyrif3', async (req, res) => {
-  try {
-    // Hash untuk password '123456'
-    const hashBaru = hashPass('123456');
-    await run('UPDATE users SET password = ? WHERE username = ?', [hashBaru, 'musyrif3']);
-    res.send('<h2>SUKSES! Password musyrif3 sudah direset menjadi: 123456</h2><p><a href="/debug-users">Kembali ke Daftar User</a></p>');
-  } catch (e) {
-    res.send('Error reset: ' + e.message);
-  }
-});
-// =========================================================
 // =========================================================
 // API — AUTH
 // =========================================================

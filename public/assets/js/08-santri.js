@@ -50,10 +50,9 @@ async function simpanSantri() {
   if (btn) { btn.disabled = true; btn.textContent = 'Menyimpan...'; }
 
   try {
-    /* ✅ Kirim ke API */
-    const created = await api.addSantri({
-      nama,
-      halaqah,
+    await api.addSantri({
+      nama: nama,
+      halaqah: halaqah,
       target: parseInt(document.getElementById('inTargetSantri').value) || 30,
       tglLahir: document.getElementById('inTglLahirSantri').value || '',
       namaWali: document.getElementById('inNamaWaliSantri').value.trim(),
@@ -61,18 +60,15 @@ async function simpanSantri() {
       foto: fotoSantriTemp,
     });
 
-    /* Reset form */
     ['inNamaSantri','inTglLahirSantri','inNamaWaliSantri','inHpWaliSantri'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
     hapusFotoSantri();
 
-    /* Reload data dari server */
     await loadAllData();
     render();
-
-    toast('Ditambahkan · login: ' + created.username);
+    toast('Santri berhasil ditambahkan ke server');
   } catch (e) {
     console.error('Error simpan santri:', e);
     toast('Gagal menyimpan: ' + e.message);
@@ -90,7 +86,7 @@ async function hapusSantri(id) {
     await loadAllData();
     render();
     hapusFotoSantri();
-    toast('Santri dihapus');
+    toast('Santri dihapus dari server');
   } catch (e) {
     console.error('Error hapus santri:', e);
     toast('Gagal menghapus: ' + e.message);

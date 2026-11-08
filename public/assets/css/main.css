@@ -1,423 +1,111 @@
+/* =========================================================
+   MAIN CSS — VERSI BERSIH & FINAL (TQA NURUL BAYAN)
+   ========================================================= */
+
+/* 1. VARIABEL & DASAR */
 :root {
   --bg: #f5f6f8; --bg-card: #ffffff; --bg-input: #ffffff;
   --text: #1c1e21; --text-muted: #65676b; --text-soft: #8a8d91;
   --border: #e4e6eb; --border-input: #ccd0d5; --border-soft: #f0f2f5;
   --primary: #2d6a4f; --primary-hover: #1b4332; --primary-soft: #edf4ef;
   --accent: #c9a227; --danger: #c1121f; --danger-soft: #fdf2f2; --danger-border: #f5c2c7;
-  --tag-green-bg: #e6f4ea; --tag-green-fg: #137333;
-  --tag-yellow-bg: #fef7e0; --tag-yellow-fg: #8a6116;
-  --tag-red-bg: #fce8e6; --tag-red-fg: #a50e0e;
-  --tag-blue-bg: #e8f0fe; --tag-blue-fg: #1967d2;
   --gold: #d4af37;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { transition: background 0.2s; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   background: var(--bg); color: var(--text); font-size: 14px;
-  -webkit-tap-highlight-color: transparent; padding-bottom: 70px;
-  transition: background 0.2s, color 0.2s;
+  padding-bottom: 70px; /* Ruang untuk sidebar */
 }
 input, select, textarea, button { font-family: inherit; color: inherit; }
-code { background: var(--border-soft); padding: 1px 5px; border-radius: 3px; font-family: ui-monospace, monospace; font-size: 11.5px; }
+code { background: var(--border-soft); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; }
 .logo-img { display: block; object-fit: contain; }
 
-/* LOGIN SCREEN */
-#loginScreen { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 20px; overflow-y: auto; }
-.login-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 28px 24px; width: 100%; max-width: 400px; margin: auto; }
-.login-logo-wrap { text-align: center; margin-bottom: 16px; }
-.login-logo-wrap img { width: 110px; height: 110px; margin: 0 auto; }
-.login-box h1 { font-size: 17px; font-weight: 600; text-align: center; color: var(--text); margin-bottom: 3px; letter-spacing: -0.2px; }
-.login-box .sub { font-size: 12px; color: var(--text-muted); margin-bottom: 22px; text-align: center; }
-.role-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
-.role-item { padding: 10px; border: 1px solid var(--border); background: var(--bg-card); border-radius: 6px; font-size: 12.5px; color: var(--text-muted); cursor: pointer; text-align: left; transition: all 0.15s; }
-.role-item:hover { background: var(--border-soft); }
-.role-item.active { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); font-weight: 500; }
-.pass-wrap { position: relative; }
-.pass-toggle { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 14px; color: var(--text-muted); padding: 4px 6px; }
-.login-info-box { font-size: 11px; color: var(--text-soft); margin-top: 14px; line-height: 1.6; text-align: center; border-top: 1px solid var(--border-soft); padding-top: 12px; }
-.login-info-box .h { font-weight: 500; color: var(--text-muted); margin-bottom: 4px; }
-
-/* HEADER & NAV */
+/* 2. HEADER & NAVIGASI ATAS */
 .app-header { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
 .brand { display: flex; align-items: center; gap: 10px; }
-.brand img { width: 42px; height: 42px; }
-.brand-txt h1 { font-size: 14.5px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.brand img { width: 40px; height: 40px; }
+.brand-txt h1 { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.2; }
 .brand-txt .sub { font-size: 11px; color: var(--text-muted); }
-.header-right { display: flex; align-items: center; gap: 6px; }
-.theme-btn, .notif-btn { width: 34px; height: 34px; border: 1px solid var(--border); background: var(--bg-card); border-radius: 6px; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: all 0.15s; position: relative; }
+.header-right { display: flex; align-items: center; gap: 8px; }
+.theme-btn, .notif-btn { width: 34px; height: 34px; border: 1px solid var(--border); background: var(--bg-card); border-radius: 6px; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); position: relative; }
 .theme-btn:hover, .notif-btn:hover { background: var(--border-soft); color: var(--text); }
 .notif-btn .badge { position: absolute; top: -4px; right: -4px; background: var(--danger); color: #fff; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 10px; }
-.user-block { display: flex; align-items: center; gap: 8px; padding: 4px 10px 4px 4px; border-radius: 20px; cursor: pointer; transition: background 0.15s; }
+.user-block { display: flex; align-items: center; gap: 8px; padding: 4px 10px 4px 4px; border-radius: 20px; cursor: pointer; }
 .user-block:hover { background: var(--border-soft); }
 .user-block .av { width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
-.user-block .info { line-height: 1.2; }
-.user-block .nm { font-size: 12.5px; font-weight: 500; color: var(--text); }
+.user-block .nm { font-size: 12.5px; font-weight: 500; }
 .user-block .rl { font-size: 10.5px; color: var(--text-muted); text-transform: capitalize; }
-.wrap { max-width: 880px; margin: 0 auto; padding: 16px; }
-.nav-tabs { display: flex; gap: 2px; background: var(--bg-card); padding: 4px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 16px; overflow-x: auto; scrollbar-width: none; }
-.nav-tabs::-webkit-scrollbar { display: none; }
-.nav-tabs button { padding: 8px 14px; border: none; background: transparent; font-size: 13px; color: var(--text-muted); cursor: pointer; border-radius: 6px; white-space: nowrap; font-weight: 500; transition: all 0.15s; }
-.nav-tabs button:hover { color: var(--text); }
+
+/* 3. NAVIGASI TABS (DI BAWAH HEADER) */
+.nav-tabs { display: flex; gap: 4px; background: var(--bg-card); padding: 6px; border: 1px solid var(--border); border-radius: 10px; margin: 16px auto; max-width: 880px; overflow-x: auto; }
+.nav-tabs button { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: none; background: transparent; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; border-radius: 8px; white-space: nowrap; }
+.nav-tabs button:hover { background: var(--border-soft); color: var(--text); }
 .nav-tabs button.on { background: var(--primary); color: #fff; }
-.panel { display: none; }
-.panel.on { display: block; }
 
-/* STATISTIK BOX */
+/* 4. SIDEBAR BAWAH (BOTTOM NAV) */
+.bottom { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-card); border-top: 1px solid var(--border); display: flex; justify-content: space-around; padding: 8px 0 12px; z-index: 1000; }
+.bottom button { flex: 1; background: none; border: none; padding: 4px; font-size: 11px; font-weight: 500; color: var(--text-soft); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.bottom button:hover { color: var(--primary); }
+.bottom button.on { color: var(--primary); font-weight: 700; }
+.bottom button svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+/* 5. LAYOUT UTAMA */
+.wrap { max-width: 880px; margin: 0 auto; padding: 16px; }
 .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
-.stat-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 10px; text-align: center; }
-.stat-box .n { font-size: 18px; font-weight: 600; color: var(--text); letter-spacing: -0.3px; }
-.stat-box .l { font-size: 10px; color: var(--text-muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.3px; }
-
-/* FORM & KOTAK UMUM */
+.stat-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+.stat-box .n { font-size: 18px; font-weight: 600; }
+.stat-box .l { font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
 .box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 18px; margin-bottom: 12px; }
-.box-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center; }
-.box-title .hint { font-size: 11.5px; font-weight: 400; color: var(--text-soft); }
+.box-title { font-size: 14px; font-weight: 600; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border-soft); display: flex; justify-content: space-between; }
 .field { margin-bottom: 12px; }
 .field label { display: block; font-size: 12.5px; color: var(--text-muted); margin-bottom: 5px; font-weight: 500; }
-.field input, .field select, .field textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--border-input); border-radius: 6px; font-size: 13.5px; background: var(--bg-input); color: var(--text); transition: border 0.15s; }
-.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--primary); }
-.field textarea { resize: vertical; min-height: 56px; }
+.field input, .field select, .field textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--border-input); border-radius: 6px; font-size: 13.5px; background: var(--bg-input); color: var(--text); }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-/* TOMBOL */
-.btn { padding: 9px 16px; border: none; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.btn { padding: 9px 16px; border: none; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; display: inline-flex; justify-content: center; }
 .btn-main { background: var(--primary); color: #fff; width: 100%; }
 .btn-main:hover { background: var(--primary-hover); }
-.btn-alt { background: var(--border); color: var(--text); }
-.btn-alt:hover { background: var(--border-input); }
 .btn-red { background: var(--bg-card); color: var(--danger); border: 1px solid var(--danger-border); padding: 5px 10px; font-size: 11.5px; }
 .btn-red:hover { background: var(--danger-soft); }
-.btn-s { padding: 5px 10px; font-size: 11.5px; }
-
-/* SEARCH & CHIP */
 .search-bar { display: flex; gap: 8px; margin-bottom: 12px; }
 .search-bar input { flex: 1; padding: 8px 12px; border: 1px solid var(--border-input); border-radius: 6px; background: var(--bg-input); font-size: 13px; }
-.chip-group { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-.chip { padding: 4px 10px; border: 1px solid var(--border); background: var(--bg-card); border-radius: 20px; font-size: 11.5px; cursor: pointer; color: var(--text-muted); display: inline-flex; align-items: center; gap: 4px; }
-.chip.on { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-/* =========================================================
-   DESAIN BARU: MANAJEMEN HALAQAH
-   ========================================================= */
-.halaqah-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
-.halaqah-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 12px; }
-.halaqah-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--primary); }
-.halaqah-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
-.halaqah-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
-.halaqah-title { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; margin-bottom: 4px; }
-.halaqah-stats { display: flex; align-items: center; gap: 16px; margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--border-soft); }
-.halaqah-stat-item { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-muted); font-weight: 500; }
-.halaqah-stat-item svg { width: 16px; height: 16px; stroke: var(--primary); }
-.halaqah-badge-musyrif { display: inline-flex; align-items: center; gap: 6px; background: var(--primary-soft); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 600; width: fit-content; }
-.halaqah-empty { background: var(--bg-card); border: 2px dashed var(--border); border-radius: 12px; padding: 40px 20px; text-align: center; color: var(--text-muted); grid-column: 1 / -1; }
-.halaqah-empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
-.form-modern-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-.form-modern-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-.form-modern-grid { display: grid; grid-template-columns: 2fr 1fr auto; gap: 12px; align-items: end; }
-.btn-icon-action { background: var(--bg-input); border: 1px solid var(--border); color: var(--text-muted); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
-.btn-icon-action:hover { background: var(--danger-soft); color: var(--danger); border-color: var(--danger-border); }
+/* 6. NOTIFIKASI PANEL */
+.notif-panel { position: fixed; top: 64px; right: 16px; width: 320px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); z-index: 1000; display: none; overflow: hidden; }
+.notif-panel.on { display: block; }
+.notif-panel h4 { margin: 0; padding: 16px; background: var(--bg-input); border-bottom: 1px solid var(--border-soft); font-size: 14px; font-weight: 600; }
+.notif-item { padding: 14px 16px; border-bottom: 1px solid var(--border-soft); font-size: 13px; color: var(--text-muted); display: flex; align-items: flex-start; gap: 10px; }
+.notif-item.warn { color: var(--danger); background: var(--danger-soft); }
 
-/* =========================================================
-   DESAIN BARU: DAFTAR SANTRI (CARD MODERN - RINGKAS)
-   ========================================================= */
+/* 7. DESAIN SANTRI (CARD) */
 .santri-grid-modern { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-top: 12px; }
-.santri-card-modern { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-.santri-card-modern:hover { transform: translateY(-2px); box-shadow: 0 6px 10px rgba(0,0,0,0.1); border-color: var(--primary); }
+.santri-card-modern { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
 .santri-card-header { display: flex; align-items: center; gap: 10px; }
-.santri-avatar-lg { width: 40px !important; height: 40px !important; border-radius: 50% !important; object-fit: cover !important; border: 2px solid var(--primary-soft); flex-shrink: 0; }
+.santri-avatar-lg { width: 40px !important; height: 40px !important; border-radius: 50% !important; object-fit: cover !important; border: 2px solid var(--primary-soft); }
 .santri-avatar-initial-lg { display: flex; align-items: center; justify-content: center; background: var(--primary-soft); color: var(--primary); font-size: 16px; font-weight: 700; width: 40px !important; height: 40px !important; border-radius: 50% !important; }
-.santri-card-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; line-height: 1.2; }
-.santri-card-role { font-size: 10px; color: var(--text-muted); background: var(--border-soft); padding: 1px 6px; border-radius: 10px; display: inline-block; font-weight: 500; }
-.santri-card-body { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--text-muted); background: var(--bg-input); padding: 8px; border-radius: 6px; }
-.santri-card-row { display: flex; justify-content: space-between; align-items: center; }
-.santri-card-row strong { color: var(--text); font-weight: 600; }
+.santri-card-name { font-size: 13px; font-weight: 700; }
+.santri-card-role { font-size: 10px; color: var(--text-muted); background: var(--border-soft); padding: 2px 8px; border-radius: 10px; }
+.santri-card-body { font-size: 11px; color: var(--text-muted); background: var(--bg-input); padding: 8px; border-radius: 6px; }
+.santri-card-row { display: flex; justify-content: space-between; }
 .santri-card-actions { display: flex; gap: 6px; margin-top: auto; }
-.santri-card-actions .btn { flex: 1; padding: 4px 8px; font-size: 11px; border-radius: 4px; }
+.santri-card-actions .btn { flex: 1; padding: 5px; font-size: 11px; }
 
-/* =========================================================
-   KARTU IDENTITAS SANTRI & LOGO
-   ========================================================= */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
-.modal-overlay.on { display: flex; }
-.modal-box { background: var(--bg-card); border-radius: 12px; padding: 20px; max-width: 420px; width: 100%; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-.modal-close { position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); line-height: 1; }
-.modal-actions { display: flex; gap: 8px; margin-top: 16px; }
-.modal-actions .btn { flex: 1; }
-.kartu-santri { border: 2px solid var(--primary); border-radius: 10px; overflow: hidden; background: #fff; color: #111; }
-.kartu-header { background: linear-gradient(135deg, #2d6a4f, #40916c); color: #fff; padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
-.kartu-header img { width: 30px !important; height: 30px !important; border-radius: 50%; background: #fff; padding: 2px; object-fit: contain; }
-.kartu-header h3 { font-size: 13px; margin: 0; line-height: 1.2; }
-.kartu-header .sub { font-size: 10px; opacity: 0.9; }
-.kartu-body { display: flex; gap: 12px; padding: 14px; align-items: center; }
-.kartu-foto { width: 60px !important; height: 60px !important; border-radius: 8px !important; object-fit: cover !important; border: 2px solid #2d6a4f; flex-shrink: 0; }
-.kartu-foto-initial { display: flex; align-items: center; justify-content: center; background: #e8f5e9; color: #2d6a4f; font-size: 24px; font-weight: 700; border-radius: 8px !important; width: 60px !important; height: 60px !important; }
-.kartu-info { flex: 1; min-width: 0; }
-.kartu-info .nama { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
-.kartu-info .row { font-size: 11px; color: #444; line-height: 1.5; }
-.kartu-barcode { padding: 8px 14px 14px; text-align: center; border-top: 1px dashed #ccc; }
-.kartu-barcode svg { max-width: 100%; height: auto; }
-.kartu-id { font-size: 11px; font-family: monospace; color: #222; letter-spacing: 1.5px; margin-top: 4px; font-weight: 600; }
+/* 8. HALAQAH (CARD) */
+.halaqah-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+.halaqah-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.halaqah-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.halaqah-title { font-size: 16px; font-weight: 700; }
+.halaqah-badge-musyrif { display: inline-flex; background: var(--primary-soft); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 600; }
+.halaqah-empty { background: var(--bg-card); border: 2px dashed var(--border); border-radius: 12px; padding: 40px; text-align: center; color: var(--text-muted); grid-column: 1 / -1; }
+.form-modern-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+.form-modern-grid { display: grid; grid-template-columns: 2fr 1fr auto; gap: 12px; align-items: end; }
 
-/* LAIN-LAIN */
-.tajwid-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
-.tajwid-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-size: 12.5px; }
-.nodata { text-align: center; padding: 40px 20px; color: var(--text-soft); font-size: 12.5px; }
-.rec { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--border-soft); border: 1px dashed var(--border-input); border-radius: 6px; }
-.rec-btn { width: 40px; height: 40px; border-radius: 50%; border: none; background: var(--danger); color: #fff; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.audio-wrap { margin-top: 8px; padding: 8px 10px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; }
-.audio-label { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
-.info-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border-soft); font-size: 12.5px; }
-.info-row:last-child { border: none; }
-#toast { position: fixed; bottom: 88px; left: 50%; transform: translate(-50%, 12px); background: #1c1e21; color: #fff; padding: 9px 18px; border-radius: 20px; font-size: 12.5px; z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.25s; max-width: 88%; text-align: center; }
+/* 9. TOAST & LAIN-LAIN */
+#toast { position: fixed; bottom: 88px; left: 50%; transform: translate(-50%, 20px); background: #1c1e21; color: #fff; padding: 10px 20px; border-radius: 20px; font-size: 13px; z-index: 9999; opacity: 0; pointer-events: none; transition: all 0.3s; }
 #toast.on { opacity: 1; transform: translate(-50%, 0); }
-
-/* RESPONSIVE */
-@media (max-width: 700px) {
-  .stat-row { grid-template-columns: repeat(2, 1fr); }
-  .form-modern-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 520px) {
-  .grid2 { grid-template-columns: 1fr; }
-  .brand-txt h1 { font-size: 13px; }
-  .brand img { width: 34px; height: 34px; }
-  .login-logo-wrap img { width: 90px; height: 90px; }
-}
-/* =========================================================
-   DESAIN PROFESIONAL: NOTIFIKASI, NAV, & KONFIRMASI
-   ========================================================= */
-
-/* 1. Notifikasi Panel */
-.notif-panel {
-  position: fixed;
-  top: 64px;
-  right: 16px;
-  width: 320px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  z-index: 1000;
-  display: none;
-  overflow: hidden;
-}
-.notif-panel.on { display: block; }
-.notif-panel h4 {
-  margin: 0;
-  padding: 16px;
-  background: var(--bg-input);
-  border-bottom: 1px solid var(--border-soft);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.notif-item {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border-soft);
-  font-size: 13px;
-  color: var(--text-muted);
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  line-height: 1.4;
-  transition: background 0.2s;
-}
-.notif-item:hover { background: var(--border-soft); }
-.notif-item:last-child { border-bottom: none; }
-.notif-item .ic { font-size: 16px; flex-shrink: 0; }
-.notif-item.warn { color: var(--danger); background: var(--danger-soft); }
-.notif-item.warn:hover { background: #fce8e6; }
-
-/* 2. Navigasi Tabs (Sidebar/Menu Atas) */
-.nav-tabs {
-  display: flex;
-  gap: 4px;
-  background: var(--bg-card);
-  padding: 6px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  margin-bottom: 16px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-}
-.nav-tabs::-webkit-scrollbar { display: none; }
-.nav-tabs button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  border: none;
-  background: transparent;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-muted);
-  cursor: pointer;
-  border-radius: 8px;
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-.nav-tabs button:hover {
-  background: var(--border-soft);
-  color: var(--text);
-}
-.nav-tabs button.on {
-  background: var(--primary);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(45,106,79,0.3);
-}
-
-/* 3. Pop-up Konfirmasi */
-.confirm-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(3px);
-  z-index: 9999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
+.modal-overlay.on { display: flex; }
+.modal-box { background: var(--bg-card); border-radius: 12px; padding: 20px; max-width: 420px; width: 100%; }
+.confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
 .confirm-overlay.on { display: flex; }
-.confirm-box {
-  background: var(--bg-card);
-  border-radius: 16px;
-  padding: 24px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-@keyframes popIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-.cf-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-.cf-msg {
-  font-size: 14px;
-  color: var(--text-muted);
-  line-height: 1.5;
-  margin-bottom: 24px;
-}
-.cf-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
-}
-.cf-actions .btn {
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 13px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-cancel {
-  background: var(--border-soft);
-  color: var(--text);
-}
-.btn-cancel:hover { background: var(--border); }
-.btn-confirm {
-  background: var(--danger);
-  color: #fff;
-}
-.btn-confirm:hover { background: #a50e0e; }
-.btn-confirm.safe { background: var(--primary); }
-.btn-confirm.safe:hover { background: var(--primary-hover); }
-/* =========================================================
-   PERBAIKAN: NOTIFIKASI & SIDEBAR MODERN
-   ========================================================= */
-
-/* 1. Notifikasi Panel */
-.notif-panel {
-  position: fixed;
-  top: 64px;
-  right: 16px;
-  width: 320px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  z-index: 1000;
-  display: none;
-  overflow: hidden;
-}
-.notif-panel.on { display: block; }
-.notif-panel h4 {
-  margin: 0;
-  padding: 16px;
-  background: var(--bg-input);
-  border-bottom: 1px solid var(--border-soft);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.notif-item {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border-soft);
-  font-size: 13px;
-  color: var(--text-muted);
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  line-height: 1.4;
-  transition: background 0.2s;
-}
-.notif-item:hover { background: var(--border-soft); }
-.notif-item:last-child { border-bottom: none; }
-.notif-item .ic { font-size: 16px; flex-shrink: 0; }
-.notif-item.warn { color: var(--danger); background: var(--danger-soft); }
-.notif-item.warn:hover { background: #fce8e6; }
-
-/* 2. Navigasi Tabs (Sidebar/Menu) */
-.nav-tabs {
-  display: flex;
-  gap: 4px;
-  background: var(--bg-card);
-  padding: 6px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  margin-bottom: 16px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-}
-.nav-tabs::-webkit-scrollbar { display: none; }
-.nav-tabs button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  border: none;
-  background: transparent;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-muted);
-  cursor: pointer;
-  border-radius: 8px;
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-.nav-tabs button:hover {
-  background: var(--border-soft);
-  color: var(--text);
-}
-.nav-tabs button.on {
-  background: var(--primary);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(45,106,79,0.3);
-}
+.confirm-box { background: var(--bg-card); border-radius: 12px; padding: 20px; width: 100%; max-width: 400px; }

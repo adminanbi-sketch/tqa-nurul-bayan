@@ -1,12 +1,14 @@
 // =========================================================
-// PENGUMUMAN & NOTIF
+// PENGUMUMAN & NOTIF — via API
 // =========================================================
-function simpanPengumuman() {
+async function simpanPengumuman() {
   const txt = document.getElementById('inPengumuman').value.trim();
-  DB.pengumuman = txt;
-  localStorage.setItem('th_pengumuman', txt);
-  renderAnnounce();
-  toast(txt ? 'Pengumuman disimpan' : 'Pengumuman dihapus');
+  try {
+    await api.savePengumuman(txt);
+    DB.pengumuman = txt;
+    renderAnnounce();
+    toast(txt ? 'Pengumuman disimpan' : 'Pengumuman dihapus');
+  } catch (e) { toast('Gagal: ' + e.message); }
 }
 
 function renderAnnounce() {

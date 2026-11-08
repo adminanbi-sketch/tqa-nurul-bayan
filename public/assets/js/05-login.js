@@ -1,5 +1,5 @@
 // =========================================================
-// LOGIN & LOGOUT
+// LOGIN & LOGOUT (FINAL)
 // =========================================================
 let roleLogin = 'admin';
 
@@ -44,13 +44,11 @@ async function masuk() {
 
   try {
     const found = await api.login(username, password, roleLogin);
-    
     user = { nama: found.nama, username: found.username, role: found.role, santriId: found.santriId };
     localStorage.setItem('th_user', JSON.stringify(user));
     
     await loadAllData();
     
-    // Sembunyikan login screen
     const loginScreen = document.getElementById('loginScreen');
     if (loginScreen) loginScreen.style.display = 'none';
     
@@ -68,6 +66,7 @@ async function masuk() {
   }
 }
 
+// ✅ FUNGSI LOGOUT PAKSA
 async function keluar() {
   try {
     const ok = await konfirmasi('Keluar dari aplikasi?', { title: 'Logout', okText: 'Ya, Keluar' });
@@ -82,7 +81,10 @@ async function keluar() {
 
   // 2. Tampilkan kembali layar login
   const loginScreen = document.getElementById('loginScreen');
-  if (loginScreen) loginScreen.style.display = 'flex';
+  if (loginScreen) {
+    loginScreen.style.display = 'flex';
+    loginScreen.style.zIndex = '99999'; // Paksa muncul di paling atas
+  }
 
   // 3. Bersihkan form login
   const usernameEl = document.getElementById('loginUsername');
@@ -99,6 +101,11 @@ async function keluar() {
     else b.classList.remove('active');
   });
   if (usernameEl) usernameEl.placeholder = 'admin';
+
+  // 5. Sembunyikan semua overlay/modal jika ada yang nyangkut
+  document.querySelectorAll('.modal-overlay, .confirm-overlay, .notif-panel').forEach(el => {
+    el.classList.remove('on');
+  });
 }
 
 function applyRole() {
@@ -123,7 +130,6 @@ function applyRole() {
   setDisp('formSantriBox', isEditor ? 'block' : 'none');
   setDisp('formSetoranBox', isEditor || isSantri ? 'block' : 'none');
 
-  // Sembunyikan panel untuk santri/wali
   const hidePanels = isSantri || isWali;
   ['santri', 'absen', 'mutabaah'].forEach(tab => {
     const panel = document.getElementById('panel-' + tab);

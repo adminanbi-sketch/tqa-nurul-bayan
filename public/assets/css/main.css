@@ -1,5 +1,6 @@
 /* =========================================================
-   TQA NURUL BAYAN - ULTRA COMPLETE PREMIUM CSS
+   TQA NURUL BAYAN - FINAL CSS (SANGAT DETAIL)
+   Didesain khusus untuk HTML asli (nav di atas, form di tengah)
    ========================================================= */
 
 /* ==================== 1. VARIABEL & DASAR ==================== */
@@ -16,7 +17,6 @@
   --primary: #0ea5e9;
   --primary-hover: #0284c7;
   --primary-soft: #e0f2fe;
-  --accent: #f59e0b;
   --danger: #ef4444;
   --danger-soft: #fef2f2;
   --danger-border: #fecaca;
@@ -29,11 +29,9 @@
   --tag-blue-bg: #dbeafe;
   --tag-blue-fg: #1e40af;
   --gold: #eab308;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --radius-sm: 8px;
+  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-full: 9999px;
@@ -84,7 +82,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-bottom: 80px;
+  padding-bottom: 20px;
   transition: background 0.3s, color 0.3s;
   overflow-x: hidden;
 }
@@ -96,16 +94,11 @@ input, select, textarea, button {
   border: none;
 }
 
-a {
-  color: var(--primary);
-  text-decoration: none;
-}
-
 code {
   background: var(--border-soft);
   padding: 2px 6px;
   border-radius: 4px;
-  font-family: 'Fira Code', ui-monospace, monospace;
+  font-family: monospace;
   font-size: 12px;
   color: var(--primary);
 }
@@ -151,20 +144,6 @@ img {
   50% { opacity: 0.6; transform: scale(0.95); }
 }
 
-@keyframes shimmer {
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes blip {
-  50% { opacity: 0.4; }
-}
-
 /* ==================== 4. LOGIN SCREEN ==================== */
 #loginScreen {
   position: fixed;
@@ -184,30 +163,30 @@ img {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
   pointer-events: none;
 }
 
 .login-box {
   position: relative;
   background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  padding: 40px;
+  border-radius: var(--radius-lg);
+  padding: 32px;
   width: 100%;
-  max-width: 440px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  max-width: 400px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
   animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .login-logo-wrap {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .login-logo-wrap img {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   margin: 0 auto;
   border-radius: 50%;
   box-shadow: var(--shadow-lg);
@@ -216,18 +195,18 @@ img {
 }
 
 .login-box h1 {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 800;
   text-align: center;
   color: var(--text);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   letter-spacing: -0.5px;
 }
 
 .login-box .sub {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   text-align: center;
   font-weight: 500;
 }
@@ -240,7 +219,7 @@ img {
 }
 
 .role-item {
-  padding: 12px 14px;
+  padding: 10px 12px;
   border: 1px solid var(--border);
   background: var(--bg-input);
   border-radius: var(--radius-md);
@@ -249,13 +228,12 @@ img {
   cursor: pointer;
   text-align: center;
   font-weight: 600;
-  transition: all 0.15s ease;
+  transition: all 0.2s;
 }
 
 .role-item:hover {
   border-color: var(--primary);
   color: var(--primary);
-  transform: translateY(-1px);
 }
 
 .role-item.active {
@@ -282,7 +260,7 @@ img {
   color: var(--text-muted);
   padding: 6px;
   border-radius: 50%;
-  transition: background 0.15s;
+  transition: background 0.2s;
 }
 
 .pass-toggle:hover {
@@ -292,17 +270,17 @@ img {
 .login-info-box {
   font-size: 12px;
   color: var(--text-soft);
-  margin-top: 24px;
-  line-height: 1.7;
+  margin-top: 20px;
+  line-height: 1.6;
   text-align: center;
   border-top: 1px solid var(--border-soft);
-  padding-top: 20px;
+  padding-top: 16px;
 }
 
 .login-info-box .h {
   font-weight: 700;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-transform: uppercase;
   font-size: 11px;
   letter-spacing: 0.5px;
@@ -334,7 +312,6 @@ img {
   top: 0;
   z-index: 1000;
   box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(10px);
 }
 
 .brand {
@@ -391,7 +368,7 @@ img {
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
-  transition: all 0.15s ease;
+  transition: all 0.2s;
   position: relative;
 }
 
@@ -424,7 +401,7 @@ img {
   padding: 4px 12px 4px 4px;
   border-radius: var(--radius-full);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s;
   border: 1px solid transparent;
 }
 
@@ -460,7 +437,7 @@ img {
   font-weight: 500;
 }
 
-/* ==================== 6. LAYOUT & NAVIGASI ==================== */
+/* ==================== 6. LAYOUT & NAVIGASI ATAS ==================== */
 .wrap {
   max-width: 900px;
   margin: 0 auto;
@@ -494,7 +471,7 @@ img {
   border-radius: var(--radius-sm);
   white-space: nowrap;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
 }
 
 .nav-tabs button:hover {
@@ -517,7 +494,7 @@ img {
   animation: fadeInUp 0.4s ease-out;
 }
 
-/* ==================== 7. STATISTIK ==================== */
+/* ==================== 7. STATISTIK BOX ==================== */
 .stat-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -532,7 +509,7 @@ img {
   padding: 20px;
   text-align: center;
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  transition: all 0.3s;
   position: relative;
   overflow: hidden;
 }
@@ -570,7 +547,7 @@ img {
   font-weight: 600;
 }
 
-/* ==================== 8. KOTAK KONTEN ==================== */
+/* ==================== 8. KOTAK KONTEN & FORM ==================== */
 .box {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -578,7 +555,7 @@ img {
   padding: 24px;
   margin-bottom: 20px;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s;
 }
 
 .box:hover {
@@ -606,7 +583,6 @@ img {
   border-radius: var(--radius-full);
 }
 
-/* ==================== 9. FORM ==================== */
 .field {
   margin-bottom: 16px;
 }
@@ -629,7 +605,7 @@ img {
   font-size: 14px;
   background: var(--bg-input);
   color: var(--text);
-  transition: all 0.15s ease;
+  transition: all 0.2s;
 }
 
 .field input:focus,
@@ -662,7 +638,7 @@ img {
   gap: 12px;
 }
 
-/* ==================== 10. TOMBOL ==================== */
+/* ==================== 9. TOMBOL ==================== */
 .btn {
   padding: 10px 20px;
   border: none;
@@ -670,7 +646,7 @@ img {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -726,7 +702,7 @@ img {
   font-size: 12px;
 }
 
-/* ==================== 11. SEARCH & CHIP ==================== */
+/* ==================== 10. SEARCH & CHIP ==================== */
 .search-bar {
   display: flex;
   gap: 8px;
@@ -740,7 +716,7 @@ img {
   border-radius: var(--radius-full);
   background: var(--bg-input);
   font-size: 14px;
-  transition: all 0.15s ease;
+  transition: all 0.2s;
 }
 
 .search-bar input:focus {
@@ -764,7 +740,7 @@ img {
   cursor: pointer;
   color: var(--text-muted);
   font-weight: 500;
-  transition: all 0.15s ease;
+  transition: all 0.2s;
 }
 
 .chip:hover {
@@ -779,7 +755,7 @@ img {
   box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);
 }
 
-/* ==================== 12. DAFTAR SANTRI (CARD) ==================== */
+/* ==================== 11. DAFTAR SANTRI (CARD) ==================== */
 .santri-grid-modern {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -796,7 +772,7 @@ img {
   flex-direction: column;
   gap: 12px;
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  transition: all 0.3s;
 }
 
 .santri-card-modern:hover {
@@ -884,7 +860,7 @@ img {
   border-radius: var(--radius-sm);
 }
 
-/* ==================== 13. HALAQAH (CARD) ==================== */
+/* ==================== 12. HALAQAH (CARD) ==================== */
 .halaqah-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -900,7 +876,7 @@ img {
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  transition: all 0.3s;
 }
 
 .halaqah-card:hover {
@@ -986,7 +962,7 @@ img {
   opacity: 0.5;
 }
 
-/* ==================== 14. FORM MODERN HALAQAH ==================== */
+/* ==================== 13. FORM MODERN HALAQAH ==================== */
 .form-modern-box {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -1024,7 +1000,7 @@ img {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s;
 }
 
 .btn-icon-action:hover {
@@ -1033,7 +1009,7 @@ img {
   border-color: var(--danger-border);
 }
 
-/* ==================== 15. SIDEBAR BAWAH ==================== */
+/* ==================== 14. SIDEBAR BAWAH ==================== */
 .bottom {
   position: fixed;
   bottom: 0;
@@ -1045,7 +1021,7 @@ img {
   justify-content: space-around;
   padding: 10px 0 14px;
   z-index: 1000;
-  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
 }
 
 .bottom button {
@@ -1061,7 +1037,7 @@ img {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  transition: all 0.15s ease;
+  transition: all 0.2s;
 }
 
 .bottom button:hover {
@@ -1081,7 +1057,7 @@ img {
   fill: none;
 }
 
-/* ==================== 16. NOTIFIKASI & MODAL ==================== */
+/* ==================== 15. NOTIFIKASI & MODAL ==================== */
 .notif-panel {
   position: fixed;
   top: 72px;
@@ -1090,7 +1066,7 @@ img {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-lg);
   z-index: 1000;
   display: none;
   overflow: hidden;
@@ -1116,7 +1092,7 @@ img {
   border-bottom: 1px solid var(--border-soft);
   display: flex;
   gap: 10px;
-  transition: background 0.15s ease;
+  transition: background 0.2s;
 }
 
 .notif-item:hover {
@@ -1132,7 +1108,7 @@ img {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.6);
   z-index: 9999;
   align-items: center;
   justify-content: center;
@@ -1151,7 +1127,7 @@ img {
   max-width: 440px;
   width: 100%;
   position: relative;
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-lg);
   animation: popIn 0.3s ease-out;
 }
 
@@ -1171,7 +1147,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease;
+  transition: background 0.2s;
 }
 
 .modal-close:hover {
@@ -1192,7 +1168,7 @@ img {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.6);
   z-index: 9999;
   align-items: center;
   justify-content: center;
@@ -1269,7 +1245,7 @@ img {
   background: var(--primary-hover);
 }
 
-/* ==================== 17. KARTU IDENTITAS ==================== */
+/* ==================== 16. KARTU IDENTITAS ==================== */
 .kartu-santri {
   border: 2px solid var(--primary);
   border-radius: var(--radius-md);
@@ -1373,7 +1349,7 @@ img {
   font-weight: 700;
 }
 
-/* ==================== 18. LAIN-LAIN ==================== */
+/* ==================== 17. LAIN-LAIN ==================== */
 .tajwid-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1389,7 +1365,7 @@ img {
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 12.5px;
-  transition: all 0.15s ease;
+  transition: all 0.2s;
 }
 
 .tajwid-item:hover {
@@ -1437,7 +1413,7 @@ img {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: transform 0.15s ease;
+  transition: transform 0.2s;
 }
 
 .rec-btn:hover {
@@ -1561,7 +1537,7 @@ audio {
   font-weight: 700;
   color: var(--text-soft);
   background: var(--bg-card);
-  transition: all 0.15s ease;
+  transition: all 0.2s;
 }
 
 .juz-cell.done {
@@ -1589,7 +1565,7 @@ audio {
   background: var(--bg-card);
   border: 1px solid var(--border);
   margin-bottom: 8px;
-  transition: all 0.15s ease;
+  transition: all 0.2s;
 }
 
 .lb-item:hover {
@@ -1598,7 +1574,7 @@ audio {
 
 .lb-item.rank-1 {
   border-color: var(--gold);
-  background: linear-gradient(90deg, rgba(234, 179, 8, 0.08), transparent);
+  background: linear-gradient(90deg, rgba(234,179,8,0.08), transparent);
 }
 
 .lb-item.rank-2 {
@@ -1673,8 +1649,8 @@ audio {
   z-index: 9999;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.3s ease;
-  box-shadow: var(--shadow-xl);
+  transition: all 0.3s;
+  box-shadow: var(--shadow-lg);
   max-width: 90%;
   text-align: center;
 }
@@ -1684,72 +1660,28 @@ audio {
   transform: translate(-50%, 0);
 }
 
-/* ==================== 19. RESPONSIVE ==================== */
+/* ==================== 18. RESPONSIVE ==================== */
 @media (max-width: 768px) {
-  .stat-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .grid2 {
-    grid-template-columns: 1fr;
-  }
-  .grid3 {
-    grid-template-columns: 1fr;
-  }
-  .form-modern-grid {
-    grid-template-columns: 1fr;
-  }
-  .brand-txt h1 {
-    font-size: 14px;
-  }
-  .brand-txt .sub {
-    display: none;
-  }
-  .user-block .info {
-    display: none;
-  }
-  .nav-tabs button {
-    padding: 8px 12px;
-    font-size: 12px;
-  }
-  .santri-grid-modern {
-    grid-template-columns: 1fr;
-  }
-  .halaqah-grid {
-    grid-template-columns: 1fr;
-  }
-  .juz-grid {
-    grid-template-columns: repeat(6, 1fr);
-  }
-  .login-box {
-    padding: 28px 20px;
-  }
-  .notif-panel {
-    width: calc(100vw - 32px);
-    right: 16px;
-  }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .grid2 { grid-template-columns: 1fr; }
+  .grid3 { grid-template-columns: 1fr; }
+  .form-modern-grid { grid-template-columns: 1fr; }
+  .brand-txt h1 { font-size: 14px; }
+  .brand-txt .sub { display: none; }
+  .user-block .info { display: none; }
+  .nav-tabs button { padding: 8px 12px; font-size: 12px; }
+  .santri-grid-modern { grid-template-columns: 1fr; }
+  .halaqah-grid { grid-template-columns: 1fr; }
+  .juz-grid { grid-template-columns: repeat(6, 1fr); }
+  .login-box { padding: 28px 20px; }
+  .notif-panel { width: calc(100vw - 32px); right: 16px; }
 }
 
 @media (max-width: 480px) {
-  .stat-box .n {
-    font-size: 22px;
-  }
-  .box {
-    padding: 16px;
-  }
-  .nav-tabs {
-    padding: 4px;
-  }
-  .nav-tabs button {
-    padding: 8px 10px;
-    font-size: 12px;
-  }
-  .user-block {
-    padding: 4px;
-  }
-  .theme-btn,
-  .notif-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
-  }
+  .stat-box .n { font-size: 22px; }
+  .box { padding: 16px; }
+  .nav-tabs { padding: 4px; }
+  .nav-tabs button { padding: 8px 10px; font-size: 12px; }
+  .user-block { padding: 4px; }
+  .theme-btn, .notif-btn { width: 36px; height: 36px; font-size: 16px; }
 }

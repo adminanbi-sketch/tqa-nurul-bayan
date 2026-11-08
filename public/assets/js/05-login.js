@@ -148,3 +148,15 @@ function applyRole() {
   setDisp('boxCustomAmalan', isAdmin ? 'block' : 'none');
   setDisp('boxPengumuman', isAdmin ? 'block' : 'none');
 }
+// =========================================================
+// FUNGSI LOGOUT DARURAT (TANPA KONFIRMASI)
+// =========================================================
+function logoutPaksa() {
+  // 1. Hapus semua memori login di browser
+  localStorage.clear();
+  sessionStorage.clear();
+  
+  // 2. Langsung lempar pengguna ke halaman login dan refresh
+  window.location.href = window.location.origin;
+  window.location.reload();
+}

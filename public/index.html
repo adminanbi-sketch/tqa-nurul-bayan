@@ -56,7 +56,7 @@
 </div>
 
 <header class="app-header">
-    <div class="brand">
+  <div class="brand">
     <img class="logo-img" id="headerLogo" alt="Logo">
     <div class="brand-txt">
       <h1>TQA Nurul Bayan</h1>
@@ -105,26 +105,26 @@
     <button data-tab="pengaturan" onclick="bukaTab('pengaturan')">Pengaturan</button>
   </nav>
 
-    <section class="panel on" id="panel-santri">
+  <section class="panel on" id="panel-santri">
     <div class="box" id="formSantriBox">
-    <div class="box-title">Tambah Data Santri</div>
-<div class="field">
-  <label>Foto Santri (opsional)</label>
-  <div class="foto-upload">
-    <div class="foto-preview" id="fotoPreviewSantri">
-      <span class="foto-placeholder">📷</span>
-    </div>
-    <div class="foto-actions">
-      <button type="button" class="btn btn-alt btn-s" onclick="document.getElementById('inFotoSantri').click()">Pilih Foto</button>
-      <button type="button" class="btn btn-alt btn-s" onclick="hapusFotoSantri()">Hapus</button>
-      <input type="file" id="inFotoSantri" accept="image/*" style="display:none" onchange="prosesFotoSantri(event)">
-    </div>
-  </div>
-</div>
-<div class="field">
-  <label>Nama lengkap</label>
-  <input type="text" id="inNamaSantri" placeholder="cth. Ahmad Fauzi">
-</div>
+      <div class="box-title">Tambah Data Santri</div>
+      <div class="field">
+        <label>Foto Santri (opsional)</label>
+        <div class="foto-upload">
+          <div class="foto-preview" id="fotoPreviewSantri">
+            <span class="foto-placeholder">📷</span>
+          </div>
+          <div class="foto-actions">
+            <button type="button" class="btn btn-alt btn-s" onclick="document.getElementById('inFotoSantri').click()">Pilih Foto</button>
+            <button type="button" class="btn btn-alt btn-s" onclick="hapusFotoSantri()">Hapus</button>
+            <input type="file" id="inFotoSantri" accept="image/*" style="display:none" onchange="prosesFotoSantri(event)">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Nama lengkap</label>
+        <input type="text" id="inNamaSantri" placeholder="cth. Ahmad Fauzi">
+      </div>
       <div class="grid2">
         <div class="field">
           <label>Halaqah</label>
@@ -150,7 +150,6 @@
         <input type="text" id="inNamaWaliSantri" placeholder="cth. Bapak Hasan">
       </div>
       <button class="btn btn-main" onclick="simpanSantri()">Simpan</button>
-    </div>
     </div>
 
     <div class="box">
@@ -380,26 +379,28 @@
       <button class="btn btn-main" onclick="gantiPassword()">Simpan Password Baru</button>
     </div>
 
-   <div class="box-title">Manajemen Halaqah</div>
+    <div class="box" id="boxKelolaHalaqah">
+      <div class="box-title">Manajemen Halaqah</div>
 
-<div class="form-modern-box">
-  <div class="form-modern-title">
-    <span>✨</span> Buat Halaqah Baru
-  </div>
-  <div class="form-modern-grid">
-    <div class="field" style="margin:0">
-      <label>Nama Halaqah</label>
-      <input type="text" id="newHalaqahNama" placeholder="cth. Halaqah C">
-    </div>
-    <div class="field" style="margin:0">
-      <label>Musyrif Pengampu</label>
-      <select id="newHalaqahMusyrif"></select>
-    </div>
-    <button class="btn btn-main" style="height: 38px; margin-bottom: 1px;" onclick="tambahHalaqah()">Tambah</button>
-  </div>
-</div>
+      <div class="form-modern-box">
+        <div class="form-modern-title">
+          <span>✨</span> Buat Halaqah Baru
+        </div>
+        <div class="form-modern-grid">
+          <div class="field" style="margin:0">
+            <label>Nama Halaqah</label>
+            <input type="text" id="newHalaqahNama" placeholder="cth. Halaqah C">
+          </div>
+          <div class="field" style="margin:0">
+            <label>Musyrif Pengampu</label>
+            <select id="newHalaqahMusyrif"></select>
+          </div>
+          <button class="btn btn-main" style="height: 38px; margin-bottom: 1px;" onclick="tambahHalaqah()">Tambah</button>
+        </div>
+      </div>
 
-<div id="listHalaqahAdmin" class="halaqah-grid"></div>
+      <div id="listHalaqahAdmin" class="halaqah-grid"></div>
+    </div>
 
     <div class="box" id="boxKelolaUser">
       <div class="box-title">Kelola Akun Musyrif</div>

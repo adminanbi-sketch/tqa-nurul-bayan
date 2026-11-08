@@ -2,10 +2,10 @@
 // INIT
 // =========================================================
 document.addEventListener('DOMContentLoaded', async () => {
-  // 1. Siapkan tampilan form (Tajwid grid)
-  renderTajwidGrid();
+  // 1. Siapkan form tajwid
+  if (typeof renderTajwidGrid === 'function') renderTajwidGrid();
 
-  // 2. Set tanggal default untuk form
+  // 2. Set tanggal default
   const tglHariIni = new Date().toISOString().split('T')[0];
   const absenTgl = document.getElementById('inAbsenTanggal');
   const mutabaahTgl = document.getElementById('inMutabaahTanggal');
@@ -15,21 +15,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 3. Cek sesi login sebelumnya
   const saved = localStorage.getItem('th_user');
   if (saved) {
-    try {
-      user = JSON.parse(saved);
-    } catch (e) {
-      console.warn('Session parse error', e);
-      user = null;
-    }
+    try { user = JSON.parse(saved); } catch (e) { user = null; }
   }
 
-  // Tampilkan login screen dulu jika user ada
+  // Sembunyikan login screen dulu (kalau ada sesi) agar tidak flicker
   if (user) {
     const loginScreen = document.getElementById('loginScreen');
     if (loginScreen) loginScreen.style.display = 'none';
   }
 
-  // 4. Ambil data terbaru dari server (Santri, Setoran, dll)
+  // 4. Load data
   try {
     await loadAllData();
     console.log('✅ Semua data berhasil di-load');
@@ -38,21 +33,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     toast('Gagal load data dari server. Cek koneksi internet.', 5000);
   }
 
-  // 5. Atur tampilan sesuai role user
-  if (user) {
-    applyRole();
-  }
-
-  // 6. Gambar semua elemen UI
+  // 5. Render dulu, baru applyRole (agar panel sudah terisi)
   render();
+  if (user) applyRole();
 
-  // 7. ✅ PENTING: Panggil pengisian dropdown Halaqah & Musyrif
-  // Karena renderHalaqahDropdowns sekarang berjalan secara async (mengambil data API)
-  // jika tidak dipanggil di sini, dropdown musyrif akan kosong atau berisi "Memuat..."
+  // 6. Dropdown halaqah & musyrif (async)
   if (typeof renderHalaqahDropdowns === 'function') {
-    renderHalaqahDropdowns();
+    await renderHalaqahDropdowns();
   }
 
-  // 8. Update info sistem (Pengaturan)
-  updateInfo();
+  // 7. Info sistem
+  if (typeof updateInfo === 'function') updateInfo();
 });

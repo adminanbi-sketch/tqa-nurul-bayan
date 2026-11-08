@@ -4,6 +4,13 @@
 const DB = { santri: [], setoran: [], absen: [], mutabaah: [], halaqah: [], amalan: [], pengumuman: '' };
 let user = null;
 
+// ✅ FIX: fallback agar 23-backup.js tidak crash
+const DEFAULT_AMALAN = [
+  { id: 'a1', t: 'Sholat 5 waktu' },
+  { id: 'a2', t: "Tilawah Al-Qur'an" },
+  { id: 'a3', t: 'Dzikir pagi & petang' },
+];
+
 async function loadAllData() {
   try {
     const [santri, setoran, absen, mutabaah, halaqah, amalan, pengumuman] = await Promise.all([

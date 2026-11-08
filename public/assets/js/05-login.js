@@ -54,8 +54,8 @@ async function masuk() {
     
     if (passwordEl) passwordEl.value = '';
     
+        render();
     applyRole();
-    render();
     if (typeof renderHalaqahDropdowns === 'function') renderHalaqahDropdowns();
     
     toast('Selamat datang, ' + found.nama);

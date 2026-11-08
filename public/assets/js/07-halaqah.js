@@ -89,3 +89,31 @@ function renderHalaqahAdmin() {
     `;
   }).join('');
 }
+function renderHalaqahDropdowns() {
+  const list = halaqahList();
+  const opt = list.map(h => `<option value="${h}">${h}</option>`).join('');
+  
+  // Isi dropdown di form santri
+  const inH = document.getElementById('inHalaqahSantri');
+  if (inH) inH.innerHTML = opt || '<option value="-">-</option>';
+  
+  // Isi filter halaqah di tab santri
+  const fH = document.getElementById('filterHalaqahSantri');
+  if (fH) fH.innerHTML = '<option value="">Semua Halaqah</option>' + opt;
+  
+  // Isi filter halaqah di tab peringkat
+  const fL = document.getElementById('filterLbHalaqah');
+  if (fL) fL.innerHTML = '<option value="">Semua Halaqah</option>' + opt;
+  
+  // Isi dropdown di tab laporan
+  const lH = document.getElementById('inLaporanHalaqah');
+  if (lH) lH.innerHTML = '<option value="">— Pilih halaqah —</option>' + opt;
+  
+  // Isi dropdown musyrif di form halaqah
+  const nM = document.getElementById('newHalaqahMusyrif');
+  if (nM) {
+    // Karena ini fungsi sinkron, kita hanya isi dengan placeholder.
+    // Data musyrif akan diisi secara asinkron oleh renderHalaqahAdmin atau fungsi lain.
+    nM.innerHTML = '<option value="">Memuat...</option>'; 
+  }
+}

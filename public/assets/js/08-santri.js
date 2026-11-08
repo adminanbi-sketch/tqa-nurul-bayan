@@ -1,5 +1,5 @@
 // =========================================================
-// SANTRI — via API
+// SANTRI — via API & Desain Modern
 // =========================================================
 let fotoSantriTemp = null;
 
@@ -106,20 +106,33 @@ function santriTerlihat() {
   return list;
 }
 
+// =========================================================
+// RENDER DAFTAR SANTRI (DESAIN MODERN)
+// =========================================================
 function renderSantri() {
   const el = document.getElementById('listSantri');
   if (!el) return;
   const cari = (document.getElementById('cariSantri')?.value || '').toLowerCase();
   const fHal = (document.getElementById('filterHalaqahSantri')?.value || '');
   let list = santriTerlihat();
+  
   if (cari) list = list.filter(s => s.nama.toLowerCase().includes(cari));
   if (fHal) list = list.filter(s => s.halaqah === fHal);
 
   const countEl = document.getElementById('santriCount');
   if (countEl) countEl.textContent = `(${list.length})`;
 
+  // Tambahkan class grid modern pada container
+  el.className = 'santri-grid-modern';
+
   if (list.length === 0) {
-    el.innerHTML = '<div class="nodata"><div class="t">Tidak ada santri</div>Tambah data atau ubah filter</div>';
+    el.innerHTML = `
+      <div class="halaqah-empty" style="grid-column: 1 / -1;">
+        <div class="halaqah-empty-icon">👤</div>
+        <h3 style="font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px;">Tidak Ada Santri</h3>
+        <p style="font-size: 13px;">Tambah data santri atau ubah filter pencarian.</p>
+      </div>
+    `;
     return;
   }
 
@@ -128,22 +141,41 @@ function renderSantri() {
   el.innerHTML = list.map(s => {
     const c = DB.setoran.filter(x => x.santriId === s.id).length;
     const uname = s.username || s.nama.toLowerCase().replace(/\s+/g, '');
+    
+    // Avatar foto atau inisial
     const avatar = s.foto
-      ? `<img src="${s.foto}" alt="${s.nama}" class="santri-avatar">`
-      : `<div class="santri-avatar santri-avatar-initial">${s.nama.charAt(0).toUpperCase()}</div>`;
+      ? `<img src="${s.foto}" alt="${s.nama}" class="santri-avatar-lg">`
+      : `<div class="santri-avatar-lg santri-avatar-initial-lg">${s.nama.charAt(0).toUpperCase()}</div>`;
+
     return `
-    <div class="item">
-      <div class="santri-row">
+    <div class="santri-card-modern">
+      <div class="santri-card-header">
         ${avatar}
-        <div class="item-main">
-          <div class="item-name">${s.nama}</div>
-          <div class="item-meta">${s.halaqah} · Target ${s.target} juz · ${c} setoran</div>
-          <div class="item-meta" style="margin-top:2px;color:var(--text-soft)">Login: <code>${uname}</code>${s.namaWali ? ` · Wali: ${s.namaWali}` : ''}</div>
+        <div>
+          <div class="santri-card-name">${s.nama}</div>
+          <div class="santri-card-role">${s.halaqah}</div>
         </div>
       </div>
-      <div class="santri-actions">
-        <button class="btn btn-alt btn-s" onclick="bukaKartu(${s.id})">🎫 Kartu</button>
-        ${editor ? `<button class="btn btn-red btn-s" onclick="hapusSantri(${s.id})">Hapus</button>` : ''}
+      
+      <div class="santri-card-body">
+        <div class="santri-card-row">
+          <span>Target</span> <strong>${s.target} Juz</strong>
+        </div>
+        <div class="santri-card-row">
+          <span>Setoran</span> <strong>${c} Kali</strong>
+        </div>
+        <div class="santri-card-row">
+          <span>Username</span> <code>${uname}</code>
+        </div>
+        ${s.namaWali ? `
+        <div class="santri-card-row">
+          <span>Wali</span> <strong>${s.namaWali}</strong>
+        </div>` : ''}
+      </div>
+
+      <div class="santri-card-actions">
+        <button class="btn btn-alt" onclick="bukaKartu(${s.id})">🎫 Kartu</button>
+        ${editor ? `<button class="btn btn-red" onclick="hapusSantri(${s.id})">Hapus</button>` : ''}
       </div>
     </div>`;
   }).join('');

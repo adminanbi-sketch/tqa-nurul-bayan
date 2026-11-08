@@ -15,6 +15,7 @@ async function tambahHalaqah() {
     document.getElementById('newHalaqahMusyrif').value = '';
     await loadAllData();
     render();
+    renderHalaqahDropdowns(); // Panggil ulang agar dropdown musyrif terisi
     toast('Halaqah ditambahkan');
   } catch (e) {
     console.error('Error tambah halaqah:', e);
@@ -34,6 +35,7 @@ async function hapusHalaqah(id) {
     await api.deleteHalaqah(id);
     await loadAllData();
     render();
+    renderHalaqahDropdowns();
     toast('Halaqah dihapus');
   } catch (e) {
     console.error('Error hapus halaqah:', e);
@@ -60,9 +62,7 @@ function renderHalaqahAdmin() {
     const jumlahSantri = DB.santri.filter(s => s.halaqah === h.nama).length;
     const musyrifNama = h.musyrif ? h.musyrif : null;
     
-    // Ikon SVG untuk Musyrif
     const iconMusyrif = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>`;
-    // Ikon SVG untuk Santri
     const iconSantri = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`;
 
     return `
@@ -71,7 +71,7 @@ function renderHalaqahAdmin() {
           <div>
             <div class="halaqah-title">${h.nama}</div>
             ${musyrifNama 
-              ? `<div class="halaqah-badge-musyrif">${iconMusyrif} Ust. ${musyrifNama}</div>` 
+              ? `<div class="halaqah-badge-musyrif">${iconMusyrif} ${musyrifNama}</div>` 
               : `<div class="halaqah-badge-musyrif" style="background: var(--border-soft); color: var(--text-muted);">${iconMusyrif} Belum ada musyrif</div>`
             }
           </div>
@@ -89,31 +89,32 @@ function renderHalaqahAdmin() {
     `;
   }).join('');
 }
+
+// ✅ FUNGSI DROPDOWN DIPERBAIKI
 function renderHalaqahDropdowns() {
   const list = halaqahList();
   const opt = list.map(h => `<option value="${h}">${h}</option>`).join('');
   
-  // Isi dropdown di form santri
   const inH = document.getElementById('inHalaqahSantri');
   if (inH) inH.innerHTML = opt || '<option value="-">-</option>';
   
-  // Isi filter halaqah di tab santri
   const fH = document.getElementById('filterHalaqahSantri');
   if (fH) fH.innerHTML = '<option value="">Semua Halaqah</option>' + opt;
   
-  // Isi filter halaqah di tab peringkat
   const fL = document.getElementById('filterLbHalaqah');
   if (fL) fL.innerHTML = '<option value="">Semua Halaqah</option>' + opt;
   
-  // Isi dropdown di tab laporan
   const lH = document.getElementById('inLaporanHalaqah');
   if (lH) lH.innerHTML = '<option value="">— Pilih halaqah —</option>' + opt;
-  
-  // Isi dropdown musyrif di form halaqah
+
+  // ✅ Ambil user dari server dengan async
   const nM = document.getElementById('newHalaqahMusyrif');
   if (nM) {
-    // Karena ini fungsi sinkron, kita hanya isi dengan placeholder.
-    // Data musyrif akan diisi secara asinkron oleh renderHalaqahAdmin atau fungsi lain.
-    nM.innerHTML = '<option value="">Memuat...</option>'; 
+    api.getUsers().then(users => {
+      nM.innerHTML = '<option value="">— Tidak ada —</option>' + 
+        users.map(u => `<option value="${u.username}">${u.nama}</option>`).join('');
+    }).catch(e => {
+      nM.innerHTML = '<option value="">— Gagal memuat —</option>';
+    });
   }
 }

@@ -380,23 +380,26 @@
       <button class="btn btn-main" onclick="gantiPassword()">Simpan Password Baru</button>
     </div>
 
-    <div class="box" id="boxKelolaHalaqah">
-      <div class="box-title">Kelola Halaqah</div>
-      <div id="listHalaqahAdmin"></div>
-      <div style="margin-top:12px;border-top:1px solid var(--border-soft);padding-top:12px">
-        <div class="grid2">
-          <div class="field">
-            <label>Nama Halaqah</label>
-            <input type="text" id="newHalaqahNama" placeholder="cth. Halaqah C">
-          </div>
-          <div class="field">
-            <label>Musyrif (opsional)</label>
-            <select id="newHalaqahMusyrif"></select>
-          </div>
-        </div>
-        <button class="btn btn-main" onclick="tambahHalaqah()">Tambah Halaqah</button>
-      </div>
+   <div class="box-title">Manajemen Halaqah</div>
+
+<div class="form-modern-box">
+  <div class="form-modern-title">
+    <span>✨</span> Buat Halaqah Baru
+  </div>
+  <div class="form-modern-grid">
+    <div class="field" style="margin:0">
+      <label>Nama Halaqah</label>
+      <input type="text" id="newHalaqahNama" placeholder="cth. Halaqah C">
     </div>
+    <div class="field" style="margin:0">
+      <label>Musyrif Pengampu</label>
+      <select id="newHalaqahMusyrif"></select>
+    </div>
+    <button class="btn btn-main" style="height: 38px; margin-bottom: 1px;" onclick="tambahHalaqah()">Tambah</button>
+  </div>
+</div>
+
+<div id="listHalaqahAdmin" class="halaqah-grid"></div>
 
     <div class="box" id="boxKelolaUser">
       <div class="box-title">Kelola Akun Musyrif</div>

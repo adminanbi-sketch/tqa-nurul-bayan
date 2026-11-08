@@ -15,43 +15,66 @@
 <body>
 
 <div id="loginScreen">
-  <div class="login-box">
-    <div class="login-logo-wrap"><img class="logo-img" id="logoSrc" alt="TQA Nurul Bayan"></div>
-    <h1>TQA Nurul Bayan</h1>
-    <div class="sub">Sistem Monitoring Hafalan Al-Qur'an</div>
+  <div class="login-split-wrapper">
+    
+    <!-- SISI KIRI: FORM LOGIN -->
+    <div class="login-form-side">
+      <div class="login-header">
+        <h1>TQA Nurul Bayan</h1>
+        <p>Sistem Monitoring Hafalan Al-Qur'an</p>
+      </div>
 
-    <div class="field">
-      <label>Masuk sebagai</label>
-      <div class="role-list">
-        <button class="role-item active" data-role="admin" onclick="pilihRole('admin', this)">Administrator</button>
-        <button class="role-item" data-role="musyrif" onclick="pilihRole('musyrif', this)">Musyrif</button>
-        <button class="role-item" data-role="santri" onclick="pilihRole('santri', this)">Santri</button>
-        <button class="role-item" data-role="wali" onclick="pilihRole('wali', this)">Wali Santri</button>
+      <div class="field">
+        <label>Masuk sebagai</label>
+        <div class="role-list">
+          <button class="role-item active" data-role="admin" onclick="pilihRole('admin', this)">Admin</button>
+          <button class="role-item" data-role="musyrif" onclick="pilihRole('musyrif', this)">Musyrif</button>
+          <button class="role-item" data-role="santri" onclick="pilihRole('santri', this)">Santri</button>
+          <button class="role-item" data-role="wali" onclick="pilihRole('wali', this)">Wali</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Username</label>
+        <div class="input-with-icon">
+          <span class="icon">👤</span>
+          <input type="text" id="loginUsername" placeholder="Masukkan username" autocomplete="username">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <div class="input-with-icon">
+          <span class="icon">🔒</span>
+          <input type="password" id="loginPassword" placeholder="Masukkan password" autocomplete="current-password">
+          <button type="button" class="pass-toggle" onclick="togglePass()" id="togglePassBtn">👁</button>
+        </div>
+      </div>
+
+      <button class="btn btn-main btn-login" onclick="masuk()">Login</button>
+      
+      <div id="loginError" style="display:none;margin-top:12px;padding:9px 12px;background:var(--danger-soft);color:var(--danger);border:1px solid var(--danger-border);border-radius:6px;font-size:12px;text-align:center"></div>
+      
+      <div class="login-footer">
+        <a href="#">Lupa Password?</a>
+        <div class="login-info-text">
+          Admin: <code>admin</code> / <code>admin123</code>
+        </div>
       </div>
     </div>
 
-    <div class="field">
-      <label>Username</label>
-      <input type="text" id="loginUsername" placeholder="admin" autocomplete="username">
-    </div>
-
-    <div class="field">
-      <label>Password</label>
-      <div class="pass-wrap">
-        <input type="password" id="loginPassword" placeholder="Masukkan password" autocomplete="current-password" style="padding-right:40px">
-        <button type="button" class="pass-toggle" onclick="togglePass()" id="togglePassBtn">👁</button>
+    <!-- SISI KANAN: PANEL BIRU -->
+    <div class="login-info-side">
+      <h2>Hello, Welcome!</h2>
+      <p>Selamat datang di Sistem Monitoring Hafalan Al-Qur'an</p>
+      
+      <div class="login-info-logo">
+        <img src="assets/img/logo-tqa.png" alt="Logo TQA">
       </div>
+      
+      <p style="font-size: 12px; margin-top: 20px; opacity: 0.8;">TQA Nurul Bayan<br>Rengasdengklok - Karawang</p>
     </div>
 
-    <button class="btn btn-main" onclick="masuk()">Masuk</button>
-    <div id="loginError" style="display:none;margin-top:12px;padding:9px 12px;background:var(--danger-soft);color:var(--danger);border:1px solid var(--danger-border);border-radius:6px;font-size:12px;text-align:center"></div>
-
-    <div class="login-info-box">
-      <div class="h">Akun default</div>
-      Admin: <code>admin</code> / <code>admin123</code><br>
-      Musyrif: <code>musyrif</code> / <code>musyrif123</code><br>
-      Santri & Wali: username = nama santri (tanpa spasi)
-    </div>
   </div>
 </div>
 

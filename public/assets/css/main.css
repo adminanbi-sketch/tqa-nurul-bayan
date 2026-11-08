@@ -1387,3 +1387,59 @@ button[onclick="logoutPaksa()"]:hover {
   .user-block { padding: 4px; }
   .theme-btn, .notif-btn { width: 36px; height: 36px; font-size: 16px; }
 }
+/* =========================================================
+   DESIGN BARU: LOGIN SPLIT SCREEN
+   ========================================================= */
+#loginScreen {
+  position: fixed; inset: 0; background: #e2e8f0; 
+  display: flex; align-items: center; justify-content: center; z-index: 9999; padding: 20px;
+}
+.login-split-wrapper {
+  display: flex; width: 100%; max-width: 850px; height: 550px;
+  background: #fff; border-radius: 24px; overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+.login-form-side {
+  flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center;
+}
+.login-form-side .login-header { text-align: center; margin-bottom: 24px; }
+.login-form-side .login-header h1 { font-size: 22px; font-weight: 800; color: #1e293b; }
+.login-form-side .login-header p { font-size: 13px; color: #64748b; margin-top: 4px; }
+.input-with-icon {
+  position: relative; display: flex; align-items: center;
+  background: #f1f5f9; border-radius: 8px; border: 1px solid #e2e8f0;
+}
+.input-with-icon .icon {
+  padding: 0 12px; font-size: 14px; color: #64748b;
+}
+.input-with-icon input {
+  flex: 1; border: none; background: transparent; padding: 12px 0;
+  font-size: 14px; color: #1e293b; outline: none;
+}
+.btn-login {
+  background: #5c85e6; color: #fff; padding: 14px; border-radius: 8px;
+  font-size: 15px; font-weight: 700; width: 100%; margin-top: 10px;
+  transition: background 0.2s;
+}
+.btn-login:hover { background: #4a72d1; }
+.login-footer { text-align: center; margin-top: 20px; }
+.login-footer a { font-size: 12px; color: #64748b; text-decoration: none; }
+.login-footer a:hover { text-decoration: underline; }
+.login-info-text { margin-top: 16px; font-size: 11px; color: #94a3b8; }
+
+.login-info-side {
+  flex: 1; background: #5c85e6; color: #fff; 
+  padding: 40px; display: flex; flex-direction: column; 
+  align-items: center; justify-content: center; text-align: center;
+  border-top-left-radius: 120px; border-bottom-left-radius: 120px;
+}
+.login-info-side h2 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+.login-info-side p { font-size: 14px; opacity: 0.9; max-width: 80%; }
+.login-info-logo img { width: 100px; height: 100px; margin-top: 30px; border-radius: 50%; background: #fff; padding: 8px; }
+
+@media (max-width: 768px) {
+  .login-split-wrapper { flex-direction: column; height: auto; max-width: 400px; }
+  .login-info-side { border-radius: 0; padding: 30px; order: -1; }
+  .login-info-logo img { margin-top: 10px; width: 70px; height: 70px; }
+  .login-form-side { padding: 24px; }
+}

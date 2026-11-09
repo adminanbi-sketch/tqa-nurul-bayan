@@ -1,7 +1,11 @@
 // =========================================================
 // LOGO TQA NURUL BAYAN
-// Logo resmi disimpan di assets/img/logo-tqa.png
 // =========================================================
 const LOGO_DATA_URL = 'assets/img/logo-tqa.png';
-document.getElementById('logoSrc').src = LOGO_DATA_URL;
-document.getElementById('headerLogo').src = LOGO_DATA_URL;
+
+// ✅ FIX: Tambahkan pengecekan (if) agar tidak error jika elemen tidak ditemukan
+const logoSrcEl = document.getElementById('logoSrc');
+if (logoSrcEl) logoSrcEl.src = LOGO_DATA_URL;
+
+const headerLogoEl = document.getElementById('headerLogo');
+if (headerLogoEl) headerLogoEl.src = LOGO_DATA_URL;

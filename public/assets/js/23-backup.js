@@ -44,11 +44,43 @@ async function resetSemua() {
   if (!ok1) return;
   const ok2 = await konfirmasi('Yakin? Semua data santri, setoran, absen, dan mutaba\'ah akan hilang permanen.', { title: 'Konfirmasi Akhir', okText: 'Ya, Hapus Semua' });
   if (!ok2) return;
-  DB.santri = []; DB.setoran = []; DB.absen = []; DB.mutabaah = []; DB.halaqah = [];
-  DB.pengumuman = '';
-  localStorage.setItem('th_pengumuman', '');
-  simpan();
-  render();
-  renderAnnounce();
-  toast('Semua data telah dihapus');
+
+  toast('Menghapus data dari server... Mohon tunggu.', 5000);
+
+  try {
+    // ✅ 1. Hapus semua Setoran di Server
+    for (const s of DB.setoran) {
+      await api.deleteSetoran(s.id);
+    }
+    
+    // ✅ 2. Hapus semua Santri di Server
+    for (const s of DB.santri) {
+      await api.deleteSantri(s.id);
+    }
+    
+    // ✅ 3. Hapus semua Halaqah di Server
+    for (const h of DB.halaqah) {
+      await api.deleteHalaqah(h.id);
+    }
+
+    // ✅ 4. Hapus Pengumuman
+    await api.savePengumuman('');
+
+    // ✅ 5. Kosongkan Data Lokal (Layar)
+    DB.santri = []; 
+    DB.setoran = []; 
+    DB.absen = []; 
+    DB.mutabaah = []; 
+    DB.halaqah = [];
+    DB.pengumuman = '';
+    
+    // ✅ 6. Refresh Tampilan
+    render();
+    renderAnnounce();
+    
+    toast('✅ Semua data berhasil dihapus permanen');
+  } catch (e) {
+    console.error('Gagal reset data:', e);
+    toast('❌ Gagal menghapus: ' + e.message, 5000);
+  }
 }

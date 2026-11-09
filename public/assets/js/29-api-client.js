@@ -18,15 +18,22 @@ async function apiCall(method, endpoint, body = null) {
   };
   if (body) opts.body = JSON.stringify(body);
 
-  const res = await fetch(API_BASE + endpoint, opts);
-  let json;
   try {
-    json = await res.json();
-  } catch (e) {
-    throw new Error('Response bukan JSON: ' + res.status);
+    const res = await fetch(API_BASE + endpoint, opts);
+    let json;
+    try {
+      json = await res.json();
+    } catch (e) {
+      throw new Error('Response bukan JSON (Cek apakah server backend menyala / URL API benar). Status: ' + res.status);
+    }
+    if (!json.ok) throw new Error(json.error || 'API error');
+    return json.data;
+  } catch (err) {
+    if (err.name === 'TypeError' || err.message.includes('Failed to fetch')) {
+      throw new Error('Koneksi internet terputus atau server API mati.');
+    }
+    throw err;
   }
-  if (!json.ok) throw new Error(json.error || 'API error');
-  return json.data;
 }
 
 // =========================================================

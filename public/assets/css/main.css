@@ -823,3 +823,221 @@ input, select, textarea { font-family: inherit; font-size: 14px; }
   .user-profile .info { display: none; }
   .notif-panel { width: calc(100vw - 24px); right: 12px; }
 }
+/* =========================================================
+   THEME UPGRADE — IDENTITAS TQA NURUL BAYAN (BIRU & EMAS)
+   ========================================================= */
+
+/* 1. Perbarui Variabel Warna Global */
+:root {
+  --primary: #0088CC; /* Biru Logo */
+  --primary-hover: #006699;
+  --primary-soft: #E6F4FA;
+  --accent: #F5A623;  /* Emas Logo */
+  --gold: #F5A623;
+  --bg: #F4F7F9;      /* Latar belakang abu kebiruan yang bersih */
+}
+
+/* 2. Latar Belakang Aplikasi */
+body {
+  background-color: #F4F7F9 !important;
+}
+
+/* 3. Sidebar (Menu Kiri) */
+.sidebar {
+  background: #FFFFFF;
+  border-right: none;
+  box-shadow: 4px 0 24px rgba(0, 136, 204, 0.05); /* Bayangan biru halus */
+  border-radius: 0 24px 24px 0;
+}
+.sidebar-brand h2 { color: var(--primary); }
+.sidebar-nav button { color: #5C6C7A; border-radius: 12px; }
+.sidebar-nav button:hover { background: var(--primary-soft); color: var(--primary); }
+.sidebar-nav button.on { 
+  background: linear-gradient(135deg, var(--primary), #00A3F5); 
+  color: #FFFFFF; 
+  box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
+}
+.sidebar-nav button svg { color: currentColor; }
+
+/* 4. Header & Profil */
+.top-header { background: transparent; border-bottom: none; padding: 20px 24px; }
+.user-profile { background: #FFFFFF; padding: 6px 16px 6px 6px; border-radius: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+.user-profile .av { background: linear-gradient(135deg, var(--primary), #00A3F5); }
+
+/* 5. Kartu Statistik (Aksen Warna Logo) */
+.stat-row { gap: 16px; }
+.stat-box {
+  border: none;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+  position: relative;
+  overflow: hidden;
+}
+.stat-box::before {
+  content: '';
+  position: absolute;
+  top: -20px; right: -20px;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+}
+/* Gradasi Biru & Emas */
+.stat-box:nth-child(1) { background: linear-gradient(135deg, #0088CC, #00B4FF); color: #fff; }
+.stat-box:nth-child(2) { background: linear-gradient(135deg, #006699, #0088CC); color: #fff; }
+.stat-box:nth-child(3) { background: linear-gradient(135deg, #F5A623, #FFC107); color: #fff; }
+.stat-box:nth-child(4) { background: linear-gradient(135deg, #D48A00, #F5A623); color: #fff; }
+
+.stat-box .n { font-size: 24px; color: #fff; font-weight: 800; }
+.stat-box .l { font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 600; }
+
+/* 6. Kartu Panel (Box) */
+.box {
+  border: none;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  background: #FFFFFF;
+}
+.box-title { 
+  font-size: 18px; 
+  border-bottom: none; 
+  margin-bottom: 20px; 
+  padding-bottom: 0;
+  color: #1C1E21;
+  font-weight: 700;
+}
+.box-title::before { display: none; } /* Hilangkan emoji bawaan */
+
+/* 7. Kartu Santri */
+.santri-card-modern {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  background: #FFFFFF;
+  transition: all 0.3s ease;
+}
+.santri-card-modern:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 136, 204, 0.15); /* Bayangan biru */
+}
+.santri-avatar-initial-lg {
+  background: linear-gradient(135deg, var(--primary), #00A3F5);
+  color: #fff;
+}
+
+/* 8. Tombol Utama */
+.btn-main {
+  background: linear-gradient(135deg, var(--primary), #00A3F5);
+  box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
+  border-radius: 12px;
+  font-weight: 700;
+  border: none;
+  color: #fff;
+}
+.btn-main:hover {
+  background: linear-gradient(135deg, var(--primary-hover), #0088CC);
+  box-shadow: 0 6px 16px rgba(0, 136, 204, 0.4);
+}
+
+/* Tombol Alt (Abu-abu) tetap netral tapi lebih modern */
+.btn-alt {
+  background: #F4F7F9;
+  border: 1px solid #E1E8ED;
+  color: #5C6C7A;
+  border-radius: 12px;
+}
+.btn-alt:hover { border-color: var(--primary); color: var(--primary); }
+
+/* 9. Input & Form */
+.field input, .field select, .field textarea {
+  background: #F8FAFC;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: all 0.2s;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  background: #FFFFFF;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(0, 136, 204, 0.1);
+}
+
+/* 10. Elemen Leaderboard & Tag Emas */
+.lb-item.rank-1 { border: 2px solid var(--gold); box-shadow: 0 4px 12px rgba(245, 166, 35, 0.2); }
+.lb-value { background: var(--primary-soft); color: var(--primary); }
+.chip.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* 11. Mode Gelap (Dark Mode) Tetap Berfungsi */
+html[data-theme="dark"] body { background-color: #12161A !important; }
+html[data-theme="dark"] .box, html[data-theme="dark"] .sidebar, html[data-theme="dark"] .santri-card-modern { background: #1E242B; }
+html[data-theme="dark"] .sidebar-nav button.on { background: linear-gradient(135deg, var(--primary), #00A3F5); }
+html[data-theme="dark"] .stat-box { box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+html[data-theme="dark"] .field input, html[data-theme="dark"] .field select, html[data-theme="dark"] .field textarea { background: #2C353F; border-color: #3E4A56; color: #fff; }
+html[data-theme="dark"] .box-title { color: #E7E9EA; }
+html[data-theme="dark"] .btn-alt { background: #2C353F; border-color: #3E4A56; color: #E7E9EA; }
+/* =========================================================
+   FIX FINAL: SCROLL, STICKY HEADER & OVERLAP
+   ========================================================= */
+
+/* 1. Area Utama Kanan menjadi scrollable */
+.main-content {
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #F4F7F9; /* Warna latar agar tidak tembus pandang */
+}
+
+/* 2. Header Menempel Sempurna di Atas */
+.top-header {
+  position: sticky;
+  top: 0;
+  z-index: 999; /* Paling atas */
+  background: #F4F7F9; /* Warna solid (sesuaikan dengan bg body) */
+  border-bottom: 1px solid #E2E8F0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  padding: 16px 24px;
+}
+
+/* 3. Kotak Statistik Ikut Menempel di Bawah Header */
+.stat-row {
+  position: sticky;
+  top: 73px; /* Disesuaikan dengan tinggi header */
+  z-index: 998;
+  background: #F4F7F9; /* Warna solid */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* 4. Beri Jarak Konten agar tidak tertutup header paling bawah */
+.content-wrapper {
+  padding-top: 10px !important;
+  padding-bottom: 80px !important; 
+}
+
+/* 5. Perbaikan Tampilan HP (Mobile) */
+@media (max-width: 768px) {
+  .top-header {
+    padding: 12px 16px;
+  }
+  .stat-row {
+    top: 64px; /* Header di HP lebih pendek */
+    padding: 10px 0;
+  }
+  .content-wrapper { padding-bottom: 120px !important; }
+}
+
+/* 6. Dark Mode Penyesuaian Header */
+html[data-theme="dark"] .top-header,
+html[data-theme="dark"] .stat-row {
+  background: #12161A; /* Warna gelap agar menyatu */
+}
+html[data-theme="dark"] .top-header {
+  border-bottom: 1px solid #2F3336;
+}

@@ -430,6 +430,24 @@
   function toggleSidebar() {
     document.querySelector('.sidebar').classList.toggle('show');
   }
+
+  document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const toggleBtn = document.querySelector('.mobile-menu-toggle');
+    
+    // Jika sidebar sedang terbuka (class 'show' ada)
+    // Dan klik bukan di dalam sidebar
+    // Dan klik bukan di tombol menu (☰)
+    if (
+      sidebar && 
+      sidebar.classList.contains('show') && 
+      !sidebar.contains(event.target) && 
+      toggleBtn && 
+      !toggleBtn.contains(event.target)
+    ) {
+      sidebar.classList.remove('show');
+    }
+  });
 </script>
 </body>
 </html>

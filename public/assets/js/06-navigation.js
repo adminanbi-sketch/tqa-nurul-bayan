@@ -12,4 +12,6 @@ function bukaTab(name) {
   if (name === 'pengaturan') updateInfo();
   if (name === 'halaqah') tampilLaporanHalaqah();
   if (name === 'leaderboard') renderLeaderboard();
+  const sidebar = document.querySelector('.sidebar');
+  if (sidebar) sidebar.classList.remove('show');
 }
